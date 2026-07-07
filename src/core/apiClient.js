@@ -3,6 +3,7 @@
 import { createApiClient } from './webCoreFallback';
 import logger from './logger';
 import { getApiBaseUrls, API_VERSION_PREFIX } from '../config/env';
+import { refreshAccessToken } from './tokenRefresh';
 
 // Ordered API bases (primary → failover, with optional local-first) come from
 // centralized config. In production there are no localhost fallbacks.
@@ -108,9 +109,22 @@ try {
   }
 } catch (_) {}
 
+// Run an authenticated call; on a 401 response, refresh the access token once
+// and retry with the fresh token. Covers reads/writes that RETURN (not throw)
+// on 401 — getMe/postMe use the fetch-based client. (patchMe/deleteMe throw on
+// non-2xx and are refresh-handled by their callers.)
+async function callWithRefresh(makeCall, token) {
+  let resp = await makeCall(token);
+  if (resp && resp.status === 401) {
+    const fresh = await refreshAccessToken();
+    if (fresh) resp = await makeCall(fresh);
+  }
+  return resp;
+}
+
 export const unifiedSync = {
-  getMe: (params, token) => api.get('/user_mang/me/', { params, headers: token ? { Authorization: `Bearer ${token}` } : {}, credentials: 'include' }),
-  postMe: (body, token) => api.post('/user_mang/me/', body, { headers: token ? { Authorization: `Bearer ${token}` } : {} } ),
+  getMe: (params, token) => callWithRefresh((tk) => api.get('/user_mang/me/', { params, headers: tk ? { Authorization: `Bearer ${tk}` } : {}, credentials: 'include' }), token),
+  postMe: (body, token) => callWithRefresh((tk) => api.post('/user_mang/me/', body, { headers: tk ? { Authorization: `Bearer ${tk}` } : {} }), token),
   // Use direct fetch for DELETE to guarantee body + Authorization header are sent
   patchMe: async (body, token) => {
     const headers = token ? { Authorization: `Bearer ${token}` } : {};
