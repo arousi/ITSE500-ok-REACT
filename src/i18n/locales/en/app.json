@@ -1,0 +1,58 @@
+{
+  "nav": {
+    "home": "Home",
+    "history": "History",
+    "profile": "Profile",
+    "settings": "Settings",
+    "feedback": "Send feedback",
+    "logout": "Log out"
+  },
+  "dashboard": {
+    "useLocalStorage": "Use local storage",
+    "useSyncedStorage": "Use synced storage",
+    "newChat": "New Chat",
+    "synced": "synced",
+    "local": "local",
+    "viewAll": "View all",
+    "confirmLogout": "Do you really want to log out of the system?",
+    "feedback": "Feedback",
+    "mailClientError": "Could not open your mail client on this device.",
+    "ok": "OK",
+    "noConversations": "No conversations yet",
+    "conversation": "Conversation",
+    "archivedProfileSuccess": "Archived profile successfully",
+    "deletedProfileSuccess": "Deleted profile successfully",
+    "loggedOutSuccess": "Logged out successfully",
+    "deletedAllChatsSuccess": "Deleted all chats successfully"
+  },
+  "chat": {
+    "send": "Send",
+    "stop": "Stop",
+    "placeholder": "Type a message...",
+    "messageInputField": "Message input field",
+    "inputHints": "Enter to send • Shift+Enter for new line",
+    "scrollToTop": "Scroll to top",
+    "welcomeMessage": "Hello {{name}}! Ask me anything.",
+    "cancelPreview": "Cancel preview",
+    "uploadedPreview": "Uploaded Preview",
+    "attachment": "Attachment",
+    "uploading": "Uploading...",
+    "uploadFile": "Upload file",
+    "userAttachment": "user-attachment",
+    "userAttachmentIcon": "user-attachment-icon",
+    "processing": "Processing...",
+    "aiOutput": "AI Output",
+    "downloadImage": "Download image",
+    "download": "Download",
+    "copiedTooltip": "Copied!",
+    "copyContent": "Copy content",
+    "copy": "copy",
+    "copied": "Copied",
+    "copyCode": "Copy code",
+    "selectModel": "Select model",
+    "errors": {
+      "providerNotConnected": "Provider is not connected or the key is invalid. Please check your settings.",
+      "connectionError": "A connection error occurred. Please try again."
+    }
+  }
+}

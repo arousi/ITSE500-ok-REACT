@@ -1,0 +1,40 @@
+.button-app-bar {
+    background-color: green;
+}
+
+#app-bar {
+    display: flex;
+    justify-content: space-between;
+    background-color: lightgray;
+}
+
+#right-button,
+#left-buttons {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#left-buttons #loginBtn,
+#left-buttons #registerBtn {
+    min-width: 90px;
+}
+
+@media (max-width: 640px) {
+    #left-buttons {
+        display: none;
+    }
+
+    #app-bar {
+        padding-right: 4px;
+    }
+}
+
+#container {
+    height: 100vh !important;
+    padding: 0 !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

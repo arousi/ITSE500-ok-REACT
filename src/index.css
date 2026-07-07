@@ -1,5 +1,7 @@
 body {
   margin: 0;
+  height: 100vh;
+  overflow-y: hidden;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -10,4 +12,61 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+/* Global theme tokens for inputs/text in light & dark */
+:root {
+  --input-bg: #ffffff;
+  --input-text: #0f172a;
+  /* slate-900 */
+  --input-label: rgba(15, 23, 42, .7);
+  --input-border: #e5e7eb;
+  /* slate-200 */
+  --input-icon: rgba(15, 23, 42, .85);
+  --input-placeholder: rgba(15, 23, 42, .6);
+}
+
+[data-theme='dark'] {
+  --input-bg: #0f172a;
+  /* slate-900 */
+  --input-text: #e5e7eb;
+  /* slate-200 */
+  --input-label: rgba(229, 231, 235, .75);
+  --input-border: #273242;
+  /* navy-ish border */
+  --input-icon: rgba(229, 231, 235, .9);
+  --input-placeholder: rgba(229, 231, 235, .6);
+}
+
+/* Apply to MUI Outlined inputs app-wide */
+.MuiTextField-root .MuiOutlinedInput-root,
+.MuiFormControl-root .MuiOutlinedInput-root {
+  background: var(--input-bg);
+  color: var(--input-text);
+}
+
+.MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+  border-color: var(--input-border) !important;
+}
+
+.MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+  border-color: var(--input-border) !important;
+}
+
+.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: var(--input-border) !important;
+  box-shadow: 0 0 0 3px rgba(25, 118, 210, .16);
+}
+
+.MuiInputLabel-root {
+  color: var(--input-label) !important;
+}
+
+.MuiInputBase-input::placeholder {
+  color: var(--input-placeholder);
+}
+
+.MuiInputAdornment-root,
+.MuiSvgIcon-root {
+  color: var(--input-icon);
 }

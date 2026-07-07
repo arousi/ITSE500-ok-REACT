@@ -1,0 +1,212 @@
+:root {
+    /* Default (light) theme variables for settings surfaces */
+    --settings-card-bg: var(--pro-card, #ffffff);
+    --settings-card-border: var(--pro-border, #e6e6eb);
+    /* Pale lilac page background to match Profile */
+    --settings-page-bg: #f4f4f5;
+    /*f6ecff*/
+}
+
+[data-theme='dark'] {
+    /* Dark theme variables follow Profile variables */
+    --settings-card-bg: var(--pro-card, #0f172a);
+    --settings-card-border: var(--pro-border, #1f2937);
+    --settings-page-bg: var(--pro-bg, #0b0f1a);
+}
+
+#chat-inference-option-card {
+    margin-top: 20px;
+    padding: 20px;
+    background: var(--settings-card-bg);
+    width: min(900px, 90%);
+    border-radius: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#settings-page {
+    /* Use a viewport-based height so the element scrolls when content overflows */
+    height: calc(100vh - 120px) !important;
+    max-height: calc(100vh - 80px) !important;
+    width: 100% !important;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 24px 12px;
+    /* box-sizing: border-box;*/
+    background: var(--settings-page-bg);
+}
+
+#settings-page::-webkit-scrollbar {
+    width: 12px;
+    /* حدد عرض شريط التمرير */
+}
+
+#settings-page::-webkit-scrollbar-thumb {
+    background: #064482;
+    /* align with dashboard accent */
+    border-radius: 6px;
+}
+
+#chat-inference-option-card div {
+    display: flex;
+    gap: 10px;
+}
+
+#pick-LLMs-card {
+    margin-top: 20px;
+    padding: 20px;
+    background: var(--settings-card-bg);
+    width: min(900px, 90%);
+    border-radius: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+#pick-LLMs-card div {
+    border-radius: 10px;
+}
+
+#pick-LLMs-card div #expandIcon {
+    width: 40px;
+    height: 40px;
+}
+
+#radio-group div input {
+    width: 65px;
+    height: 65px;
+}
+
+#temperature-card {
+    margin-top: 20px;
+    padding: 20px;
+    background: var(--settings-card-bg);
+    width: min(900px, 90%);
+    border-radius: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Responsive tweaks */
+@media (max-width: 900px) {
+
+    #chat-inference-option-card,
+    #pick-LLMs-card,
+    #temperature-card {
+        width: 94%;
+        padding: 16px;
+    }
+}
+
+@media (max-width: 640px) {
+
+    #chat-inference-option-card,
+    #pick-LLMs-card,
+    #temperature-card {
+        width: 96%;
+        border-radius: 14px;
+        padding: 12px;
+    }
+}
+
+.card {
+    margin: auto;
+    margin-top: 20px !important;
+    margin-bottom: 10px !important;
+    padding: 20px !important;
+    background: var(--settings-card-bg) !important;
+    width: min(900px, 90%) !important;
+    border-radius: 12px !important;
+}
+
+/* ===== ConfigurationDialog styles (web, inspired by mobile screenshot) ===== */
+.config-dialog .MuiBackdrop-root {
+    background: rgba(15, 23, 42, 0.4);
+}
+
+.config-dialog-paper {
+    border-radius: 24px !important;
+    background: var(--settings-card-bg) !important;
+    border: 1px solid var(--settings-card-border) !important;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.18) !important;
+}
+
+.config-dialog-title {
+    font-weight: 700 !important;
+    font-size: 22px !important;
+    padding: 16px 24px !important;
+    border-bottom: 1px solid rgba(125, 58, 237, .08);
+}
+
+.config-dialog-content {
+    padding: 8px 16px 0 16px !important;
+}
+
+.config-dialog-actions {
+    padding: 16px 24px !important;
+}
+
+.config-close-btn {
+    border-radius: 10px !important;
+    text-transform: none !important;
+}
+
+.config-save-btn {
+    border-radius: 10px !important;
+    text-transform: none !important;
+    padding: 10px 20px !important;
+    font-weight: 700 !important;
+    background: #1976D2 !important;
+    /* primary */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, .20) !important;
+}
+
+.config-save-btn:hover {
+    filter: brightness(1.05);
+    transform: translateY(-1px);
+}
+
+/* Accordions look like soft segmented cards */
+.config-dialog-content .MuiAccordion-root {
+    border: 1px solid var(--settings-card-border);
+    border-radius: 14px !important;
+    background: var(--settings-card-bg);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+.config-dialog-content .MuiAccordion-root+.MuiAccordion-root {
+    margin-top: 12px;
+}
+
+.config-dialog-content .MuiAccordionSummary-root {
+    border-radius: 14px !important;
+    color: var(--settings-card-text, inherit);
+}
+
+.config-dialog-content .MuiAccordionDetails-root {
+    background: transparent;
+    border-top: 1px solid rgba(0, 0, 0, .06);
+}
+
+/* Controls polish */
+.config-dialog-content .MuiSwitch-root {
+    transform: scale(1.05);
+}
+
+.config-dialog-content .MuiSlider-root {
+    opacity: .9;
+}
+
+.config-dialog-content .MuiTextField-root .MuiInputBase-root {
+    background: #fff;
+    border-radius: 12px;
+}
+
+.config-dialog-content .MuiTextField-root .MuiInputBase-root.Mui-focused {
+    box-shadow: 0 0 0 3px rgba(25, 118, 210, .18);
+}

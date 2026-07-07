@@ -1,0 +1,12 @@
+{
+  "name": "web-core",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "type": "commonjs",
+  "peerDependencies": {
+    "axios": ">=1.6.0 <2"
+  },
+  "description": "Reusable logger and API client for React/web apps.",
+  "author": "ituotse",
+  "license": "MIT"
+}

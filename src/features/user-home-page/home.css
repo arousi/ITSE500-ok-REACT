@@ -1,0 +1,567 @@
+.chat-field-container{
+    width: 100%;
+    max-height:65%;
+    display: flex;
+    overflow-x: hidden;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* اجعل التمدد للأعلى عبر رسو المكوّن أسفل الحاوية */
+    /* Keep the chat input visually pinned regardless of inner scroll.
+       Using fixed avoids the input being moved when the scroll reaches top. */
+    position: fixed;
+    /* span the available content area (from drawer edge to right edge) and center child horizontally */
+    right: auto;
+    left: auto;
+    bottom:0;
+    transform: none;
+            z-index:0;
+        /* تم استبدال filter التي كانت تطمس كل المحتوى بـ backdrop-filter الذي يطمس الخلفية فقط */
+        -webkit-backdrop-filter: blur(16px);
+        backdrop-filter: blur(16px);
+    padding-right: 16px; /* right gutter */
+  /* lowered so the drawer/menu sits above the input */
+    /* Match the chat area background so the input block blends with the page in both themes */
+        /* خلفية نصف شفافة للسماح للضبابية بالظهور */
+        background: var(--chat-area-bg-blur, var(--chat-area-bg));
+    padding-top: 4px;
+    pointer-events: auto;
+    
+    padding-bottom:10px;
+}
+.chat-field-container::before{
+    
+  
+}
+.chat-field-container.blur-bg > *{
+    position:relative;
+    z-index:1;
+}
+.chat-field-container.glass::before{
+      content:"";
+  position:absolute;
+  inset:0;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  /* نجعل المنتصف شفافاً والحواف مرئية (فتظهر الضبابية فقط كإطار) */
+  /* دائرة مع مركز واضح وحواف ضبابية */
+  mask: radial-gradient(circle at center,
+        transparent 0,
+        transparent calc(100% - 28px),
+        black calc(100% - 28px),
+        black 100%);
+  pointer-events:none;
+  z-index:-1;
+}
+/* Theme variables for chat UI */
+:root{
+    --chat-surface: #ffffff;
+    --chat-border: #dedede;
+    --chat-footer-bg: #f6ecff;
+    --chat-user-bubble: #e5e5e5;
+    --chat-ai-bubble: #717171;
+    --chat-ai-text: #ffffff;
+    --chat-user-text: #0f172a;
+    --chat-toolbar-bg: #f6ecff;
+    --chat-hint-text: #8a8a8a;
+    --chat-area-bg: #f4f4f5;
+    /* نسخة نصف شفافة تستخدم مع الضبابية حتى لا تتأثر الأبناء */
+    --chat-area-bg-blur: rgba(244,244,245,0.75);
+}
+[data-theme='dark']{
+    --chat-surface: #0f172a;
+    --chat-border: #1f2937;
+    --chat-footer-bg: #0b0f1a;
+    --chat-user-bubble: #1f2937;
+    --chat-ai-bubble: #1f2937;
+    --chat-ai-text: #e5e7eb;
+    --chat-user-text: #e5e7eb;
+    --chat-toolbar-bg: #0f172a;
+    --chat-hint-text: #94a3b8;
+    --chat-area-bg: #0b0f1a;
+    --chat-area-bg-blur: rgba(11,15,26,0.65);
+}
+
+@media (max-width:640px){
+    /* on small screens the drawer becomes overlay; center relative to viewport */
+    .chat-field-container{
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
+        width: min(98%, var(--chat-max-width, 960px));
+    }
+}
+
+/* حقل الكتابة: استجابة كاملة بدون ارتفاع ثابت */
+.chat-field{
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: minmax(0, 1fr) auto; /* مهم: يمنع دفع الصف السفلي */
+    grid-auto-rows: auto;
+    height: auto;
+    margin:auto;
+    min-height: 120px;
+    max-height: 50vh;
+   ;
+   filter:none;
+    width: 100%;
+    z-index: 1;
+    max-width: var(--chat-max-width, 960px);
+    padding: 14px 16px;
+    gap: 10px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+    background: var(--chat-surface);
+    border: 1px solid var(--chat-border);
+    overflow: hidden;
+    border-radius:50px !important;
+    overflow-x: none;
+}
+.input-surface{
+    overflow-x:hidden;
+}
+/* عمود النص/الصورة */
+.first-row-first-column {
+    grid-column: 1 / 2; /* كان 1 / -1: الآن يشغل العمود الأول فقط لضمان محاذاة زر الإرسال يميناً */
+    grid-row: 1 / 2;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    /* لا تجعل وجود مساحة سفلية يرفع الأدوات */
+    justify-content: flex-start;
+    overflow-y: auto;
+    min-height: 0;   /* مهم جداً للسماح بالانكماش داخل grid */
+    max-height: 100%;
+    flex: 1 1 auto;
+
+}
+
+/* صف الإدخال (معاينة + textarea) بشكل أفقي */
+.input-row{
+    display:flex;
+    /* stack preview above textarea so textarea can take full horizontal space
+       up to the send button (which occupies the second grid column) */
+    flex-direction: column;
+    align-items: stretch; /* اسمح للـ textarea بالتمدد رأسياً ضمن الصف */
+    gap: 12px;
+    width: 100%;
+}
+
+/* عناصر داخلة لهذا العمود (نصوص عامة) */
+.first-row-first-column div{
+    width:100%;
+    border:none;
+    font-size:16px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding:0;
+}
+
+/* عمود أزرار الإرسال/الإيقاف */
+.first-row-second-column{
+    grid-column: 2 / -1;
+    grid-row: 1 / 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+/* صف الأدوات السفلي */
+.first-column-second-row{
+    grid-column: 1 / -1;
+    grid-row: 2 / -1;
+    position:static;
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+    gap: 8px;
+    /* اختيارياً لتحسين الوضوح عند التمرير في الأعلى */
+    background-color: var(--chat-surface);
+
+}
+
+/* textarea ديناميكي الارتفاع مع التفافات */
+#textarea-chat{
+    width:100%;
+    height:auto;
+    min-height:56px;
+    /* لا حاجة لحد أقصى صارم هنا؛ العمود نفسه يمرّج */
+    max-height: 28vh;
+    resize: none;
+    border:none;
+    outline:none;
+    unicode-bidi: plaintext;
+    font-size:19px;
+    font-weight: bold;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
+    padding:14px 14px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    word-break: break-word;
+    flex: 1 1 auto;
+    /* Make textarea background same as the card surface for a unified look */
+    background: var(--chat-surface);
+    color: var(--chat-user-text);
+
+   
+}
+
+/* معاينة الصورة المرفوعة: مرنة وواضحة */
+#imageUploaded{
+    /* stacked preview above the textarea, full width of the input column */
+    width: 100%;
+    max-height: clamp(100px, 30vh, 300px);
+    position: static;
+    border:1px solid var(--chat-border);
+    border-radius:12px;
+    background: var(--chat-surface);
+    overflow:hidden;
+    z-index: 3;
+    margin-bottom: 8px;
+}
+#imageUploaded img{
+    width:100%;
+    height:auto;
+    max-height: clamp(100px, 22vh, 200px);
+    object-fit:contain;
+    display:block;
+
+}
+
+/* Attachment metadata chip under preview */
+.attachment-chip{
+    /* place the attachment metadata under the preview image instead of overlaying it */
+    position: static;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+    border-radius: 12px;
+    background: var(--chat-surface);
+    border: 1px solid var(--chat-border);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+    width: calc(100% - 16px);
+    margin: 8px auto 0;
+    justify-content: flex-start;
+}
+.attachment-ext{
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: #ffd1dc; /* badges for file type */
+    color: #9b1b30;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 800;
+}
+.attachment-meta{ display: flex; flex-direction: column; min-width: 0; }
+.attachment-name{
+    font-size: 13px;
+    font-weight: 600;
+    color: #333;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.attachment-type{ font-size: 11px; color: #777; }
+
+/* اجعل الـ textarea تتمدد داخل الصف الأفقي */
+.input-row #textarea-chat{
+    flex: 1 1 auto;
+    /* ensure textarea content doesn't flow under the absolutely positioned preview when present */
+    transition: margin-left 160ms ease, padding-top 120ms ease;
+}
+
+/* When there is an image preview preceding the textarea, offset the textarea so it doesn't overlap the preview */
+.input-row #imageUploaded + #textarea-chat{
+    /* preview is stacked, no left offset needed so textarea fills column */
+    margin-left: 0;
+    padding-top: 0.25rem;
+}
+
+/* input surface must be positioned relative to contain the absolutely positioned preview */
+.input-surface{ position: relative; }
+
+/* زر إغلاق المعاينة */
+.close-upload-btn{
+    position:absolute !important;
+    top:6px;
+    right:6px;
+        background: var(--chat-surface);
+        border:1px solid var(--chat-border);
+    width:28px;
+    height:28px;
+    padding:0px;
+    border-radius:50%;
+}
+
+/* منطقة العرض */
+.chat-area{
+    height:75vh!important;
+    width:100% !important;
+    display:flex;
+    border-bottom:none !important;
+    box-shadow:none !important;
+    flex-direction: column;
+    align-items:center;
+    overflow-y: auto; /* keep scrolling but let scrollbars be hidden */
+    /* hide scrollbars while preserving scroll behavior (cross-browser) */
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+    padding-bottom: 260px; /* safe default; reduced in media queries below */
+    background: var(--chat-area-bg);
+}
+
+/* رسائل الذكاء الاصطناعي والمستخدم كما هي */
+#ai-message{
+  width:60%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+  padding:10px
+}
+#ai-message div{
+    unicode-bidi: plaintext;
+    background-color: var(--chat-ai-bubble);
+    padding:8px;
+    font-size:30px;
+    color: var(--chat-ai-text);
+    max-width:90%;
+    white-space:wrap;
+    overflow-x:auto;
+    text-align: left;
+    border-radius:10px;
+}
+#user-message{
+    display: flex;
+    width:60%;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding:10px
+}
+#user-message div{
+    unicode-bidi: plaintext;
+    background-color: var(--chat-user-bubble);
+    border:none;
+    font-size:30px;
+    max-width:90%;
+    text-align: right;
+    padding:8px;
+    border-radius:10px;
+    /* Ensure long text and URLs wrap instead of overflow */
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    line-height: 1.5;
+    overflow-x: hidden;
+    color: var(--chat-user-text);
+}
+#user-image{
+    object-fit:contain;
+    border-radius:50%;
+    margin-right:10px;
+}
+
+/* حاويات أخرى كما هي */
+/* Single definition: user image container inside the user message bubble */
+#user-image-container{
+    display: none;            /* default hidden; toggled inline when image exists */
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    max-height: 360px;        /* responsive cap */
+    margin-top: 8px;
+}
+#user-image-container img{
+    width: 100%;
+    height: auto;
+    max-height: 360px;
+    object-fit: contain;
+    border-radius: 10px;
+}
+#user-image-container video{
+    width:100%;
+    height:100%;
+    border-radius:10px;
+}
+
+.chat-area::-webkit-scrollbar {
+    width: 0; /* effectively hide the scrollbar on WebKit browsers */
+    height: 0;
+}
+.chat-area::-webkit-scrollbar-thumb {
+    background: transparent; /* ensure thumb is not visible */
+}
+
+#ai-image-container{
+    width:100%;
+    height:80% ;
+    display:none;
+}
+#ai-image-container img{
+    width:100%;
+    height:100%;
+    border-radius:10px;
+}
+
+/* زر رفع الملف مع سبينر تحميل */
+.upload-button{
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+.upload-button.loading button{
+    opacity: 0.6;
+    pointer-events: none;
+}
+.upload-spinner{
+    position: absolute;
+    right: -12px;
+    top: -12px;
+    width: 24px;
+    height: 24px;
+    border: 3px solid rgba(0,0,0,0.15);
+    border-top-color: #1976d2; /* لون متناسق مع MUI primary */
+    border-radius: 50%;
+    animation: upload-spin 0.9s linear infinite;
+    display: none;
+}
+.upload-button.loading .upload-spinner{
+    display: inline-block;
+}
+
+@keyframes upload-spin{
+    to { transform: rotate(360deg); }
+}
+
+/* استجابة للشاشات الصغيرة: اجعل الأزرار في سطر مستقل بالكامل */
+@media (max-width: 600px){
+    .chat-field{
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto;
+    width: 96%;
+    padding: 10px;
+    }
+    .first-row-first-column{
+            grid-column: 1 / 2; /* كان 1 / -1: الآن يشغل العمود الأول فقط لضمان محاذاة زر الإرسال يميناً */
+        grid-row: 1 / 2;
+    }
+    .first-row-second-column{
+        grid-column: 1 / -1;
+        grid-row: 2 / 3;
+        align-items: flex-end;
+        justify-content: center;
+    }
+    .first-column-second-row{
+        grid-column: 1 / -1;
+        grid-row: 3 / 4;
+    }
+}
+
+/* New: input surface and hints */
+.input-surface{
+    width: 100%;
+    border: 1px solid var(--chat-border);
+    border-radius: 12px;
+    background: var(--chat-surface);
+    box-shadow: inset 0 1px 0 rgba(0,0,0,0.02);
+    padding: 4px 6px 6px;
+}
+.input-hints{
+    color: var(--chat-hint-text);
+    font-size: 12px;
+    padding: 0 8px 4px;
+}
+
+/* MUI inputs inside chat field respect theme */
+.chat-field .MuiTextField-root .MuiInputBase-root,
+.chat-field .MuiAutocomplete-root .MuiInputBase-root{
+    /* Ensure ModelsAutoComplete input matches card surface */
+    background: var(--chat-surface);
+    color: var(--chat-user-text);
+}
+.chat-field .MuiInputLabel-root{ color: var(--chat-user-text); opacity: .85; }
+.chat-field .MuiOutlinedInput-notchedOutline{ border-color: var(--chat-border); }
+.chat-field .Mui-focused .MuiOutlinedInput-notchedOutline{ border-color: var(--chat-border); }
+/* Autocomplete dropdown */
+.MuiAutocomplete-popper .MuiPaper-root{
+    background: var(--chat-surface) !important;
+    color: var(--chat-user-text);
+    border: 1px solid var(--chat-border);
+}
+.MuiAutocomplete-option{ color: var(--chat-user-text); }
+
+/* Floating send button styles */
+.send-btn{
+    background: #5454b6;
+    color: #000 !important;
+    box-shadow: 0 6px 16px rgba(84,84,182,0.3);
+    width: 46px;
+    height: 46px;
+    border-radius: 12px !important;
+    transition: transform 120ms ease, box-shadow 120ms ease, opacity 120ms ease;
+}
+.send-btn:hover{
+    transform: translateY(-1px);
+    box-shadow: 0 10px 22px rgba(84,84,182,0.35);
+}
+.send-btn:disabled{
+    opacity: 0.5;
+    box-shadow: none;
+}
+.send-btn.danger{
+    background: #ef5350;
+    box-shadow: 0 6px 16px rgba(239,83,80,0.28);
+}
+.image-container{
+    width:400px;
+    margin:auto;
+    height:300px;
+    display: none;
+   
+}
+
+/* ===== Responsive adjustments for chat area ===== */
+:root{ --chat-max-width:960px; }
+
+@media (max-width:1200px){
+  :root{ --chat-max-width:760px; }
+  .chat-field{ width: min(var(--chat-max-width), 96%); padding:12px 14px; }
+  #textarea-chat{ min-height:96px; max-height:30vh; }
+}
+
+@media (max-width:900px){
+  :root{ --chat-max-width:640px; }
+  .chat-field{ width: min(var(--chat-max-width), 98%); padding:10px; gap:8px; }
+  .first-row-first-column{ min-height:0; max-height: 40vh; }
+    /* On narrower screens, preview becomes narrower and text offset reduces */
+    #imageUploaded{ width: 44%; max-height: 30vh; left: 10px; top:10px; }
+    .input-row #imageUploaded + #textarea-chat{ margin-left: calc(44% + 16px); }
+    /* keep attachment meta below the preview on narrower screens */
+    .attachment-chip{ position: static; width: calc(100% - 12px); margin: 6px auto 0; }
+  .send-btn{ width:46px; height:46px; }
+}
+
+@media (max-width:640px){
+  :root{ --chat-max-width: 100%; }
+    /* On small screens stack the preview above the textarea but keep it inside the chat-field so page layout doesn't change */
+    .chat-field{ width: 98%; padding: 8px; grid-template-columns: 1fr auto; grid-template-rows: auto auto; }
+  .first-row-first-column{ max-height: 36vh; overflow-y:auto; }
+    .first-row-second-column{ grid-column: 1 / -1; grid-row: 2 / 3; justify-content: flex-end; }
+  .first-column-second-row{ grid-column: 1 / -1; grid-row: 3 / 4; gap:6px; }
+    #textarea-chat{ min-height:48px; max-height:22vh; font-size:15px; }
+    /* preview is stacked above the textarea on small screens as well */
+    #imageUploaded{ position: static; width: 100%; max-height: 28vh; margin-bottom:8px; z-index:1; }
+    .input-row #imageUploaded + #textarea-chat{ margin-left: 0; }
+  .upload-button{ right: 0; }
+  .send-btn{ width:44px; height:44px; }
+    /* on small screens we don't need a large bottom padding because the fixed input is smaller */
+    .chat-area{ padding-bottom: 160px; }
+}
+
+@media (max-width:420px){
+    .chat-area{ height:65vh !important; padding-bottom: 140px; }
+  #ai-message, #user-message{ width:92%; }
+  #textarea-chat{ padding:10px; font-size:14px; }
+}

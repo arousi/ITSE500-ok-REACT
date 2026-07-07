@@ -1,58 +1,116 @@
-## Get Started
+# Ozma Kapa — web (itse500-react)
 
-This guide describes how to use DigitalOcean App Platform to run a sample React application.
+Ozma Kapa is a bilingual (English/Arabic, full RTL) multi-provider AI chat web app.
+Users bring their own API key (Gemini, OpenRouter, OpenAI, HuggingFace) or, once the
+backend billing/proxy is live, use a managed-key tier gated behind a feature flag.
+This repo is the React front end; it is served as a static build by the
+`itse500-django` backend.
 
-**Note**: Following these steps may result in charges for the use of DigitalOcean services.
+## Tech stack
 
-### Requirements
+- React 19 + MUI 7 (Emotion, with `stylis-plugin-rtl` for RTL styling)
+- Create React App / `react-scripts` 5
+- `i18next` + `react-i18next` for en/ar translations, `LanguageSwitcher` for runtime switching
+- `axios` for HTTP, with a shared token-refresh interceptor in `src/core/tokenRefresh.js`
+- Feature-sliced structure under `src/features/*` (`auth`, `login`, `register`, `register-OTP`,
+  `forgot-password`, `dashboard`, `dashboard-auth`, `history`, `profile`, `settings`,
+  `send-feedback`, `user-home-page`)
+- API types generated from a vendored OpenAPI schema (`openapi/schema.yaml` → `src/api/schema.d.ts`)
 
-* You need a DigitalOcean account. If you do not already have one, first [sign up](https://cloud.digitalocean.com/registrations/new).
+## Prerequisites
 
-## Deploy the App
+- Node.js version pinned in `.nvmrc` (currently 20) — `engines` in `package.json` requires
+  `>=18 <23`. If you use `nvm`, run `nvm use` in this directory.
+- npm (ships with Node)
 
-Click the following button to deploy the app to App Platform. If you are not currently logged in with your DigitalOcean account, this button prompts you to to log in.
+## Install
 
-[![Deploy to DigitalOcean](https://www.deploytodo.com/do-btn-blue.svg)](https://cloud.digitalocean.com/apps/new?repo=https://github.com/digitalocean/sample-react/tree/main)
+```
+npm install
+```
 
-Note that, for the purposes of this tutorial, this button deploys the app directly from DigitalOcean's GitHub repository, which disables automatic redeployment since you cannot change our template. If you want automatic redeployment or you want to change the sample app's code to your own, we instead recommend you fork [our repository](https://github.com/digitalocean/sample-react/tree/main).
+`.npmrc` sets `legacy-peer-deps=true` — required because `react-scripts` 5 pins peer
+deps to React 18 and conflicts with React 19 / i18next's optional TypeScript 5 peer.
+Keep using `npm install`/`npm ci` (not a peer-deps-strict install) until the app
+migrates off CRA.
 
-To fork our repository, click the **Fork** button in the top-right of [its page on GitHub](https://github.com/digitalocean/sample-react/tree/main), then follow the on-screen instructions. To learn more about forking repos, see the [GitHub documentation](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo).
+## Run (development)
 
-After forking the repo, you can view the same README in your own GitHub org; for example, in `https://github.com/<your-org>/sample-react`. To deploy the new repo, visit the [control panel](https://cloud.digitalocean.com/apps) and click the **Create App** button. This takes you to the app creation page. Under **Service Provider**, select **GitHub**. Then, under **Repository**, select your newly-forked repo. Ensure that your branch is set to **main** and **Autodeploy** is checked on. Finally, click **Next**.
+```
+npm start
+```
 
-After clicking the **Deploy to DigitalOcean** button or completing the instructions above to fork the repo, follow these steps:
+Opens at [http://localhost:3000](http://localhost:3000). Copy `.env.example` to
+`.env.development.local` and fill in `REACT_APP_API_BASE_URL` /
+`REACT_APP_AUTH_BASE_URL` to point at a local or remote backend — see
+[Configuration](#configuration) below.
 
-1. Configure the app, such as by specifying HTTP routes, declaring environment variables, or adding a database. For the purposes of this tutorial, this step is optional.
-1. Provide a name for your app and select the region to deploy your app to, then click **Next**. By default, App Platform selects the region closest to you. Unless your app needs to interface with external services, your chosen region does not affect the app's performance, since to all App Platform apps are routed through a global CDN.
-1. On the following screen, leave all the fields as they are and click **Next**.
-1. Confirm your plan settings and how many containers you want to launch and click **Launch Basic/Pro App**.
+## Test
 
-After, you should see a "Building..." progress indicator. You can click **View Logs** to see more details of the build. It can take a few minutes for the build to finish, but you can follow the progress in the **Deployments** tab.
+```
+npm test
+```
 
-Once the build completes successfully, click the **Live App** link in the header and you should see your running application in a new tab, displaying the home page.
+Runs `react-scripts test` (Jest) in watch mode; `CI=true npm test -- --watchAll=false`
+for a single run with coverage-friendly output.
 
+> If you're running tests **inside this `.claude/worktrees/...` worktree on Windows**,
+> Jest's default `testMatch` glob can fail to match files because of a mixed-slash
+> rootDir. Add an explicit match:
+> ```
+> npm test -- --testMatch "**/*.test.{js,jsx}"
+> ```
+> This is a local worktree quirk only — CI checks out to a clean path and needs no
+> override. See [docs/ci-and-testing.md](docs/ci-and-testing.md) for the full CI
+> contract shared across the three ITSE500 repos (react/django/flutter).
 
-## Make Changes to Your App
+## Build (production)
 
-If you forked our repo, you can now make changes to your copy of the sample app. Pushing a new change to the forked repo automatically redeploys the app to App Platform with zero downtime.
+```
+npm run build
+```
 
-Here's an example code change you can make for this app:
+Requires `.env.production` with the real `REACT_APP_API_BASE_URL` /
+`REACT_APP_AUTH_BASE_URL` set (CRA bakes `REACT_APP_*` vars in at build time — there
+are no dev-host fallbacks in a production build; `validateEnv()` fails loudly at
+startup if either is missing). See [docs/deploy.md](docs/deploy.md) for the full
+build → sync → nginx/CSP deployment procedure.
 
-1. Edit `src/App.js` and replace "Welcome to Your New React App" with a different greeting
-1. Commit the change to the `main` branch. Normally it's a better practice to create a new branch for your change and then merge that branch to `main` after review, but for this demo you can commit to the `main` branch directly.
-1. Visit the [control panel](https://cloud.digitalocean.com/apps) and navigate to your sample app.
-1. You should see a "Building..." progress indicator, just like when you first created the app.
-1. Once the build completes successfully, click the **Live App** link in the header and you should see your updated application running. You may need to force refresh the page in your browser (e.g. using **Shift** + **Reload**).
+## Configuration
 
-## Learn More
+All `REACT_APP_*` env vars are read through the single source of truth
+`src/config/env.js` — nothing else in the app should read `process.env` directly.
+Copy [`.env.example`](.env.example) to get started; key vars:
 
-To learn more about App Platform and how to manage and update your application, see [our App Platform documentation](https://www.digitalocean.com/docs/app-platform/).
+| Var | Purpose |
+|---|---|
+| `REACT_APP_API_BASE_URL` | Django API host. Required in production. |
+| `REACT_APP_AUTH_BASE_URL` | Auth endpoint host. Required in production. |
+| `REACT_APP_AUTH_API_BASE_URL` | Explicit auth API base; derived from `REACT_APP_AUTH_BASE_URL` if unset. |
+| `REACT_APP_SECONDARY_API_BASE_URL` / `REACT_APP_TERTIARY_API_BASE_URL` | Optional failover API bases. Leave empty in production. |
+| `REACT_APP_LOCAL_BACKEND_FIRST` | Dev convenience: prefer local backend on `localhost`. |
+| `REACT_APP_OAUTH_SSR` / `REACT_APP_OAUTH_RESULT_ONLY` | OAuth SSR flow toggles; keep off unless the backend exposes the SSR endpoints. |
+| `REACT_APP_ENABLE_MANAGED_LLM` | Feature flag for the managed (server-proxied) LLM tier. Default off; backend proxy/billing not live yet. |
+| `REACT_APP_ENABLE_PASSWORD_RESET` | Feature flag for password-reset flow. Default off; no backend endpoint yet. |
+| `REACT_APP_ENABLE_FEEDBACK` | Feature flag for in-app feedback submission. Default off; no backend endpoint yet. |
+| `REACT_APP_GEMINI_SECRET_KEY` / `REACT_APP_OPENROUTER_SECRET_KEY` / `REACT_APP_OPENAI_SECRET_KEY` / `REACT_APP_HUGGINGFACE_SECRET_KEY` | Optional BYO-provider-key dev fallbacks. End users normally enter their own key in-app. |
+| `REACT_APP_SENTRY_DSN` | Optional error-reporting DSN. |
 
-## Delete the App
+## API types (OpenAPI codegen)
 
-When you no longer need this sample application running live, you can delete it by following these steps:
-1. Visit the [Apps control panel](https://cloud.digitalocean.com/apps).
-2. Navigate to the sample app.
-3. In the **Settings** tab, click **Destroy**.
+The backend's OpenAPI schema is vendored at `openapi/schema.yaml`. Regenerate the
+TypeScript types after a backend contract change:
 
-**Note**: If you do not delete your app, charges for using DigitalOcean services will continue to accrue.
+```
+npm run gen:api
+```
+
+This writes `src/api/schema.d.ts` (consumed by `src/api/typedClient.ts`). CI runs an
+api-drift check to catch a stale generated file.
+
+## Further reading
+
+- [docs/deploy.md](docs/deploy.md) — build, sync into `itse500-django`, nginx + CSP
+- [docs/ci-and-testing.md](docs/ci-and-testing.md) — CI pipeline shape shared across
+  itse500-react / itse500-django / itse500-flutter, and what the React test suite covers
+- [docs/CHANGELOG.md](docs/CHANGELOG.md) — dated summary of notable changes

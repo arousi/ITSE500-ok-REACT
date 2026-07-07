@@ -1,0 +1,35 @@
+#register-otp-card{
+    width:500px;
+    height: 650px;
+    border-radius: 20px !important;
+    padding: 20px;
+    text-align: center;
+    background-color: lightgray !important;
+}
+.header{
+    display: flex;
+    justify-content:center!important;
+}
+.header div{
+    width:100px !important;
+    height:100px !important;
+}
+#body input{
+    border-radius: 15px;
+    background-color:white;
+}
+#body{
+    text-align:left !important ;
+}
+#footer #visitor-button{
+    margin-top:20px;
+    width:100%;
+    background-color:#7B7B7B;
+}
+#title-otp{
+    font-size:20px;
+    font-weight:bold;
+}
+.text-register{
+    font-size:23px !important;
+}

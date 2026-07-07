@@ -1,0 +1,31 @@
+import {Card , Slider  , Typography } from "@mui/material";
+import {useContext} from 'react';
+import { useTranslation } from "react-i18next";
+import {SettingsContext} from "../contexts/SettingsContext";
+import {ChatInferenceOptionContext} from "../contexts/ChatInferenceOptionContext";
+export default function RepeatPenalty() {
+    const { t } = useTranslation();
+    const {settings , setSettings} = useContext(SettingsContext);
+    const {chatInferenceOption} = useContext(ChatInferenceOptionContext);
+    return(
+        <Card className={"card"}>
+
+            <Typography sx={{fontSize:30}}>{t('settingsPage.chatInference.repeatPenalty')}</Typography>
+            <h2>{settings.repeat_penalty}</h2>
+            <Slider step={0.01}
+                    disabled={!chatInferenceOption.repeatPenaltyOpen}
+                    value={settings.repeat_penalty}
+                    min={1.05} max={1.2}
+                    onChange={handleRepeatPenaltyChange}
+                    valueLabelDisplay="auto"/>
+            <p style={{fontSize:"18px"}}>{t('settingsPage.chatInference.repeatPenaltyHelp')}</p>
+
+        </Card>
+    )
+    function handleRepeatPenaltyChange(event) {
+        setSettings(prev => ({
+            ...prev,
+            repeat_penalty: chatInferenceOption.repeatPenaltyOpen ? event.target.value : undefined
+        }));
+    }
+}

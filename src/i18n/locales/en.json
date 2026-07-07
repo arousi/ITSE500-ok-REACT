@@ -1,0 +1,193 @@
+{
+  "common": {
+    "or": "or",
+    "loading": "Loading…",
+    "continueAsGuest": "Continue as guest",
+    "signIn": "Sign in",
+    "signingIn": "Signing in…",
+    "save": "Save",
+    "cancel": "Cancel",
+    "submit": "Submit",
+    "back": "Back",
+    "next": "Next"
+  },
+  "login": {
+    "username": "Username",
+    "password": "Password",
+    "newUser": "New user?",
+    "signUp": "Sign up",
+    "forgotPassword": "Forgot password?",
+    "resetNow": "Reset now",
+    "welcomeGuest": "Welcome back, guest.",
+    "loginSuccess": "Signed in successfully",
+    "serverOfflineGuest": "Server is offline. Continuing as guest locally.",
+    "guestUnable": "Unable to start guest session.",
+    "errors": {
+      "fillAll": "Please fill in all fields",
+      "offline": "You are offline. Please check your internet connection.",
+      "serverUnreachable": "Server unreachable. Please try again later.",
+      "invalidCreds": "Invalid username or password.",
+      "tooMany": "Too many attempts. Please wait and try again.",
+      "generic": "Login failed. Please try again."
+    }
+  },
+  "register": {
+    "title": "Create account",
+    "username": "Username",
+    "email": "Email",
+    "emailOrPhone": "Email or phone",
+    "password": "Password",
+    "confirmPassword": "Confirm password",
+    "alreadyUser": "Already have an account?",
+    "login": "Log in",
+    "signUp": "Sign up",
+    "signingUp": "Signing up…",
+    "errors": {
+      "fillAll": "Please fill in all fields",
+      "invalidEmail": "Enter a valid email address",
+      "connection": "Server connection issue. Please try again later.",
+      "failed": "Registration failed. Please try again."
+    }
+  },
+  "otp": {
+    "title": "Confirmation code",
+    "subtitle": "Enter the code we sent you",
+    "confirmationCode": "Confirmation code",
+    "verify": "Verify",
+    "resend": "Resend code",
+    "errors": {
+      "invalid": "Invalid or expired code. Please try again.",
+      "required": "Please enter the full code."
+    }
+  },
+  "forgotPassword": {
+    "title": "Reset your password",
+    "newPassword": "New password",
+    "confirmPassword": "Confirm password",
+    "returnToLogin": "Return to the login page",
+    "returnToRegister": "Return to the register page",
+    "success": "Password reset. You can now sign in.",
+    "errors": {
+      "mismatch": "Passwords do not match.",
+      "weak": "Password is too weak."
+    }
+  },
+  "nav": {
+    "home": "Home",
+    "history": "History",
+    "profile": "Profile",
+    "settings": "Settings",
+    "feedback": "Send feedback",
+    "logout": "Log out"
+  },
+  "settings": {
+    "title": "Settings",
+    "language": "Language",
+    "appearance": "Appearance",
+    "theme": "Theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System",
+    "english": "English",
+    "arabic": "العربية"
+  },
+  "settingsPage": {
+    "chatInference": {
+      "title": "Chat Inference Option",
+      "temperature": "Temperature",
+      "temperatureHelp": "How much randomness to introduce. 0 will yield the same result every time, while higher values will increase creativity and variance",
+      "topK": "Top k",
+      "topKHelp": "Minimum base probability for a token to be selected for output",
+      "minP": "Min p",
+      "minPHelp": "Minimum base probability for a token to be selected for output",
+      "topP": "Top p",
+      "topPHelp": "Maximum base probability for a token to be selected for output",
+      "repeatPenalty": "Repeat Penalty",
+      "repeatPenaltyHelp": "How much to discourage repeating the same token"
+    },
+    "appearance": {
+      "title": "Appearance",
+      "lightMode": "Light mode",
+      "systemDefault": "System default",
+      "darkMode": "Dark mode"
+    },
+    "pickProvider": {
+      "defaultProvider": "Default provider:"
+    },
+    "configDialog": {
+      "title": "Configuration",
+      "providers": "Providers",
+      "settings": "Settings",
+      "systemPrompt": "System Prompt",
+      "systemPromptPlaceholder": "Enter a persistent system instruction (e.g., You are a helpful assistant...)",
+      "limitResponseLength": "Limit Response Length",
+      "maxTokens": "Max tokens",
+      "sampling": "Sampling",
+      "structuredOutput": "Structured Output",
+      "structuredOutputJsonSchema": "Structured Output (JSON Schema)",
+      "optionsStorage": "Options storage",
+      "selectStorageOption": "Select storage option:",
+      "localStorage": "Local Storage",
+      "mixedOnly": "Mixed Only",
+      "close": "Close"
+    }
+  },
+  "profile": {
+    "createNewAccount": "Create new account",
+    "providers": "Providers",
+    "authentication": "Authentication",
+    "archiveOrDeleteAccount": "Archive or Delete account",
+    "personalInformation": "Personal Information",
+    "username": "Username",
+    "serverUuid": "Server UUID",
+    "email": "Email",
+    "phoneNumber": "Phone Number",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "saveAllChanges": "Save All Changes",
+    "statusNotSet": "Not set",
+    "statusConnected": "Connected",
+    "statusDisconnected": "Disconnected",
+    "baseUrl": "Base URL",
+    "secretKey": "Secret Key",
+    "models": "Models",
+    "fetchModels": "Fetch Models",
+    "filterModels": "Filter models",
+    "noModelsAvailable": "No models available",
+    "selectionNone": "None",
+    "selectionAll": "All",
+    "selectionPart": "Part",
+    "searchInCategory": "Search in {{category}}",
+    "conversationsStorage": "Conversations Storage",
+    "selectOption": "Select option : ",
+    "localOnly": "Local Only",
+    "mixedOnly2": "Mixed Only",
+    "deleteDialog": {
+      "title": "Close your Account",
+      "chooseOption": "Choose an option below Archive disable access and schedules deletion ~30 days .",
+      "deletingRemovesImmediately": "Deleting removes your account immediately.",
+      "noGuaranteeBackups": "There is no guarantee your account data will be removed from our past DB Backups.",
+      "reasonFeedback": "Reason / Feedback (optional)",
+      "permanentlyDeleteNow": "Permanently Delete now",
+      "turnOffToArchive": "Turn off to archive instead",
+      "delete": "Delete",
+      "archive": "Archive",
+      "accountDeletion": "account deletion",
+      "willBeDeleted": "Your account will be permanently deleted.",
+      "accountArchival": "account archival",
+      "willBeArchived": "Your account will be archived."
+    },
+    "oauth": {
+      "enableOpenRouterSignIn": "Enabled to show OpenRouter Sign-in on login screen",
+      "enableGoogleSignIn": "Enabled to show Google Sign-in on login screen"
+    }
+  },
+  "history": {
+    "deleteAll": "Delete all",
+    "deleteAllConversationsTitle": "delete all conversations",
+    "deleteAllConversationsConfirm": "Do you really want to delete all conversations? This action cannot be undone.",
+    "conversation": "Conversation",
+    "conversationDeletedSuccess": "Conversation deleted successfully",
+    "conversationDeleteFailed": "Failed to delete conversation"
+  }
+}

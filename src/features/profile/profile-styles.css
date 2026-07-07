@@ -1,0 +1,835 @@
+#profile-card {
+    width: 750px;
+    min-height: 100% !important;
+    max-height: fit-content;
+    border-radius: 20px !important;
+    padding: 25px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: var(--profile-card-bg, #f4f4f5) !important;
+}
+
+.authenticator-buttons {
+    text-align: start;
+    display: grid !important;
+    border-radius: 4px !important;
+    grid-template-columns: 1fr 20fr;
+}
+
+#profile-card-header {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+#profile-container {
+    padding: 24px 12px;
+    /* Match SettingsPage viewport sizing and scrolling */
+    height: calc(100vh - 120px) !important;
+    max-height: calc(100vh - 80px) !important;
+    width: 100% !important;
+    text-align: center;
+    overflow-y: scroll !important;
+    -webkit-overflow-scrolling: touch;
+}
+
+#profile-card-footer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 10px;
+}
+
+#profile-card-header div {
+    border-radius: 10px;
+    background-color: var(--profile-input-bg, #ffffff);
+}
+
+/* Base (light) variables */
+:root {
+    --profile-card-bg: #d6d6d6;
+    /* keep cards light */
+    --profile-surface: #F5F2E7;
+    --profile-border: #e6e6eb;
+    /* New distinct page background (slightly tinted gray-violet) */
+    --profile-page-bg: #f4f4f5;
+    /* lighter gray so cards still pop via border+shadow */
+}
+
+.provider-type {
+    font-weight: 500 !important;
+    font-size: 1.2rem !important;
+}
+
+[data-theme='dark'] {
+    --profile-card-bg: #131924;
+    /* card navy */
+    --profile-surface: #10151d;
+    --profile-border: #243040;
+    /* Darker page background to contrast with card (#0b0f1a similar to settings dark) */
+    --profile-page-bg: #0b0f1a;
+}
+
+#emailField input:valid {
+    border-color: green;
+}
+
+#emailField input:invalid {
+    border-color: red;
+}
+
+/*personal-information-card*/
+#personal-information-card {
+    border-radius: 16px;
+    margin: auto;
+    width: min(880px, 92%) !important;
+    background: var(--pro-card) !important;
+    border: 1px solid var(--pro-border) !important;
+    color: var(--pro-text);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
+}
+
+.username-server-uuid {
+    width: 100%;
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: center !important;
+    align-items: stretch !important;
+    gap: 20px;
+    /* زيادة المسافة بين الحقول */
+
+}
+
+.username-server-uuid>* {
+    flex: 1 1 0;
+    min-width: 0;
+}
+
+.username-server-uuid .MuiTextField-root {
+    flex: 1 1 0;
+    min-width: 0;
+}
+
+.email-phone {
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+
+}
+
+/* Ensure TextFields never overflow card width */
+#personal-information-card .MuiTextField-root {
+    width: 100%;
+    max-width: 100%;
+}
+
+#personal-information-card .MuiTextField-root .MuiInputBase-root {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#personal-information-card .MuiFormControl-root {
+    width: 100%;
+    max-width: 100%;
+}
+
+#personal-card-footer {
+    display: flex;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    justify-content: center;
+}
+
+#personal-card-footer button {
+    width: 80%;
+    height: 64px;
+    border-radius: 10px;
+    background: #1976D2;
+    color: white;
+    text-transform: capitalize;
+    font-size: 18px;
+}
+
+.section-provider-key .header-provider-key {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* .section-provider-key{
+    width: 75% !important; تقليل العرض قليلاً لتوازن الفراغات الجانبية 
+    background-color: #EAE8E8 !important;
+    margin: 20px auto !important;
+    display: flex !important;
+    background: var(--profile-card-bg) !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    border: 1px solid var(--pro-border) !important;  خط خفيف حول المكون 
+    padding: 30px !important;  إضافة مساحة داخلية ليبدو المحتوى متنفس 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08) !important;  ظل خفيف لعمق بصري 
+    border-radius: 20px !important
+
+} */
+.accordion-summary {
+    display: flex;
+    align-items: center;
+
+}
+
+.header-provider-key {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.switch-and-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.provider-label {
+    font-weight: 500 !important;
+    font-size: 1.2em !important;
+}
+
+/* زر الرابط */
+.open-link-btn {
+    border: 1px solid var(--pro-border);
+    padding: 4px;
+    background-color: var(--pro-card);
+}
+
+.open-link-btn:hover {
+    filter: brightness(1.03);
+}
+
+/* الحقل */
+.body-provider-key .secret-key-field {
+    width: 100%;
+}
+
+.model-toggle-button {
+    border: 1px solid black !important;
+    padding: 10px !important;
+    border-radius: 10px !important;
+
+}
+
+.total-selected-btn {
+    color: white !important;
+    border-radius: 7px !important;
+    text-transform: capitalize !important;
+    margin-right: 10px !important;
+}
+
+.model-toggle-button:hover {
+    background-color: #f0f0f0;
+}
+
+.secret-key-field .MuiInputBase-root {
+    height: 38px;
+}
+
+/* الأكوردين */
+.models-accordion-wrapper .accordion-summary {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.models-title {
+    font-weight: 500;
+}
+
+.models-count {
+    background-color: var(--pro-border);
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+/* تحسين أيقونة Expand */
+#expandIcon {
+    color: #666;
+}
+
+.models-header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.models-header-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.models-header-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.models-filter-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.models-tools-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.models-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.model-tile {
+    border: 1px solid var(--pro-border);
+    border-radius: 8px;
+    padding: 12px;
+    cursor: pointer;
+    background: var(--pro-card);
+}
+
+.model-tile:hover {
+    border-color: #bdbdbd;
+    filter: brightness(1.03);
+}
+
+.category-search-field .MuiInputBase-root {
+    height: 36px;
+}
+
+.card-category-models {
+    width: 250px;
+    display: flex;
+    gap: 10px;
+}
+
+.provider-container {
+    display: flex;
+    text-align: center !important;
+    flex-direction: column;
+    align-items: center;
+}
+
+.category-search-field {
+    margin-bottom: 20px !important;
+    border: 1px solid var(--pro-border) !important;
+    padding: 8px 12px !important;
+
+    border-radius: 10px !important;
+}
+
+.category-search-field .MuiOutlinedInput-root {
+    outline: none !important;
+    padding: 10px !important;
+
+}
+
+.fetch-models-button {
+    color: white !important;
+    border-radius: 5px !important;
+    padding: 6px 12px !important;
+    text-transform: capitalize !important;
+}
+
+.fetch-models-button:hover {
+    background-color: #45a049;
+}
+
+/* (removed old oauth-card block that used hardcoded border and profile-card-bg) */
+
+.oauth-container {
+    max-width: min(960px, 92%);
+}
+
+/* ===== Enhanced UI additions (Profile) ===== */
+:root {
+    /* Light theme defaults aligned with app */
+    --pro-bg: #f4f4f5;
+    /* page background */
+    --pro-surface: #ffffff;
+    /* input surfaces */
+    --pro-card: #d6d6d6;
+    /* card surfaces */
+    --pro-border: #e5e7eb;
+    /* light divider */
+    --pro-text: #0f172a;
+    /* dark text */
+    --pro-muted: #64748b;
+    /* secondary text */
+    --pro-accent: #1976D2;
+    /* primary accent */
+    --pro-primary: #115293;
+    /* primary hover */
+    --pro-success: #16a34a;
+    /* green-600 */
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --pro-bg: #0f1115;
+        --pro-surface: #0f172a;
+        --pro-card: #0f172a;
+        --pro-border: #1f2937;
+        --pro-text: #e5e7eb;
+        --pro-muted: #94a3b8;
+        --pro-accent: #1976D2;
+        --pro-primary: #115293;
+    }
+}
+
+/* App theme toggle support */
+[data-theme='dark'] {
+    --pro-bg: #0f1115;
+    --pro-surface: #0f172a;
+    --pro-card: #0f172a;
+    --pro-border: #1f2937;
+    --pro-text: #e5e7eb;
+    --pro-muted: #94a3b8;
+    --pro-accent: #1976D2;
+    --pro-primary: #115293;
+}
+
+/* Apply new page background */
+#profile-container {
+    padding: 24px 16px;
+    /* Use the same page background variable as settings so both pages match */
+}
+
+/* Utility (kept for reuse) */
+.settings-like-bg {
+    background: var(--profile-page-bg);
+}
+
+/* Profile page scrollbar to match SettingsPage look */
+#profile-container::-webkit-scrollbar {
+    width: 12px;
+}
+
+#profile-container::-webkit-scrollbar-thumb {
+    background: #064482;
+    border-radius: 6px;
+}
+
+/* Card styling: ensure distinction from page bg */
+#profile-card {
+    width: min(880px, 92%) !important;
+    min-height: 720px !important;
+    max-height: fit-content;
+    border-radius: 18px !important;
+    padding: 24px;
+    margin: 12px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: var(--profile-card-bg) !important;
+    border: 1px solid var(--profile-border);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .10);
+}
+
+/* legacy #personal-information-card styles removed */
+/* [data-theme='dark'] #personal-information-card{
+    background: var(--pro-card) !important;
+    border: 1px solid var(--pro-border) !important;
+    box-shadow: 0 10px 28px rgba(0,0,0,0.25);
+} */
+
+.username-server-uuid .MuiTextField-root .MuiInputBase-root,
+.email-phone .MuiTextField-root .MuiInputBase-root {
+
+    border-radius: 10px;
+}
+
+.MuiTextField-root .MuiInputBase-root {
+    height: 55px;
+    transition: box-shadow 160ms ease, border-color 160ms ease;
+}
+
+/* .MuiTextField-root .MuiInputBase-root.Mui-focused{
+    box-shadow: 0 0 0 3px rgba(124,58,237,.18);
+} */
+
+#personal-card-footer button {
+    width: 80%;
+    height: 64px;
+    border-radius: 10px;
+    background: #1976D2;
+    color: white;
+    text-transform: capitalize;
+    font-size: 18px;
+    letter-spacing: .2px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, .18);
+}
+
+#personal-card-footer button:hover {
+    filter: brightness(1.05);
+    transform: translateY(-1px);
+}
+
+#personal-card-footer button:active {
+    transform: translateY(0);
+}
+
+.model-toggle-button {
+    background-color: var(--pro-card) !important;
+    border: 1px solid var(--pro-border) !important;
+    padding: 10px 12px !important;
+    border-radius: 10px !important;
+    color: var(--pro-text) !important;
+    transition: transform 160ms ease, box-shadow 160ms ease, background-color 160ms ease, border-color 160ms ease;
+}
+
+.model-toggle-button:hover {
+    filter: brightness(1.03);
+    transform: translateY(-1px);
+}
+
+.model-toggle-button.Mui-selected {
+    background-color: rgba(25, 118, 210, .18) !important;
+    border-color: rgba(25, 118, 210, .45) !important;
+    color: var(--pro-text) !important;
+}
+
+.total-selected-btn {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, .18) !important;
+}
+
+.category-search-field {
+    margin-bottom: 20px !important;
+    border: 1px solid var(--pro-border) !important;
+    padding: 0 !important;
+    background: #fff;
+    border-radius: 10px !important;
+}
+
+.category-search-field .MuiOutlinedInput-root {
+    outline: none !important;
+    padding: 10px 12px !important;
+}
+
+.category-search-field .MuiOutlinedInput-root.Mui-focused {
+    box-shadow: 0 0 0 3px rgba(25, 118, 210, .18);
+}
+
+.fetch-models-button {
+    background: #1976D2 !important;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, .18) !important;
+}
+
+.fetch-models-button:hover {
+    filter: brightness(1.06);
+}
+
+.oauth-card {
+    width: min(880px, 92%) !important;
+    margin: 20px auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 16px !important;
+    border: 1px solid var(--pro-border) !important;
+    padding: 22px !important;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08) !important;
+    border-radius: 16px !important;
+    background: var(--pro-card) !important;
+    /* Inherit primary text color for all children by default */
+    color: var(--pro-text);
+}
+
+/* OAuth card typography should respect theme colors */
+.oauth-card .MuiTypography-root {
+    color: var(--pro-text) !important;
+}
+
+.oauth-card p {
+    margin: 2px 0 0 0;
+    color: var(--pro-muted);
+}
+
+/* Optional: ensure switches look balanced across themes */
+.oauth-card .MuiSwitch-root .MuiSwitch-track {
+    /* subtle track tone compatible with both themes */
+    background-color: rgba(100, 116, 139, 0.35) !important; /* slate-500 @ 35% */
+}
+
+.oauth-card .MuiSwitch-root.Mui-checked .MuiSwitch-track,
+.oauth-card .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track {
+    background-color: rgba(25, 118, 210, 0.45) !important; /* primary @ 45% */
+}
+
+.section-provider-key {
+    width: min(880px, 92%) !important;
+    margin: 20px auto !important;
+    background-color: var(--pro-card) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 14px !important;
+    border: 1px solid var(--pro-border) !important;
+    padding: 22px !important;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08) !important;
+    border-radius: 16px !important;
+}
+
+.provider-container {
+    gap: 8px;
+}
+
+#personal-information-card .MuiTypography-root:first-of-type {
+    font-size: 28px !important;
+    font-weight: 700 !important;
+    letter-spacing: .2px;
+    color: var(--pro-text);
+}
+
+@media (max-width: 640px) {
+    #personal-card-footer button {
+        width: 100%;
+        height: 58px;
+    }
+}
+
+/* ===== Legacy violet theme tokens (kept for reference, not used) ===== */
+:root {
+    --violet-50: #f4f4f5;
+    --violet-100: #e6e6eb;
+    --violet-200: #e6e6eb;
+}
+
+
+
+#personal-information-card .MuiTextField-root .MuiInputBase-root .MuiInputLabel-root {
+    color: #0b0f1a;
+}
+
+/* Card surfaces: slig#personal-information-card,htly tinted with soft border like screenshot */
+
+/* .oauth-card,
+   .section-provider-key{
+    background: #fcfaff !important;
+    border-color: var(--pro-border) !important;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06) !important;
+} */
+
+/* In dark theme, cancel light tint backgrounds for these cards */
+/* [data-theme='dark'] #personal-information-card,
+   [data-theme='dark'] .oauth-card,
+   [data-theme='dark'] .section-provider-key{
+    background: var(--pro-card) !important;
+    border-color: var(--pro-border) !important;
+} */
+
+/* Providers header spacing */
+.provider-container {
+    max-width: min(960px, 92%);
+    margin: 12px auto;
+    align-items: stretch;
+}
+
+.provider-container .MuiTypography-root {
+    text-align: left;
+}
+
+/* Primary pill buttons in this page */
+#profile-container>.MuiButton-root {
+    border-radius: 10px !important;
+    height: 56px !important;
+    padding: 10px 18px !important;
+    font-weight: 600 !important;
+    letter-spacing: .2px;
+    color: #fff !important;
+    background: #1976D2 !important;
+    border: 1px solid rgba(25, 118, 210, .35) !important;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, .15) !important;
+}
+
+#profile-container>.MuiButton-root:hover {
+    filter: brightness(1.03);
+    transform: translateY(-1px);
+}
+
+#profile-container>.MuiButton-root svg {
+    margin-inline-end: 8px;
+}
+
+/* Save button stays strong purple pill */
+#personal-card-footer button {
+    border: 1px solid rgba(25, 118, 210, .35);
+}
+
+/* Archive/Delete button: keep destructive intent but polish it */
+#profile-container .MuiButton-root[style*="background-color: red"] {
+    border-radius: 10px !important;
+    height: 56px !important;
+    padding: 10px 18px !important;
+    font-weight: 600 !important;
+    letter-spacing: .2px;
+    box-shadow: 0 8px 18px rgba(239, 68, 68, .25) !important;
+}
+
+#profile-container .MuiButton-root[style*="background-color: red"]:hover {
+    filter: brightness(1.05);
+    transform: translateY(-1px);
+}
+
+/* Inputs themed globally in index.css; keep only spacing/surface where needed */
+.text-field {
+    margin-top: 4px !important;
+    background-color: var(--input-bg);
+}
+
+/* Autocomplete dropdowns */
+.MuiAutocomplete-popper .MuiPaper-root {
+    background: var(--pro-surface) !important;
+    color: var(--pro-text);
+    border: 1px solid var(--pro-border);
+}
+
+.MuiAutocomplete-option {
+    color: var(--pro-text);
+}
+
+/* Section titles: spacing mimic */
+#profile-container .MuiTypography-root[style*="textDecoration: underline"],
+#profile-container .MuiTypography-root[style*="text-decoration: underline"] {
+    text-decoration-thickness: 2px !important;
+    text-underline-offset: 6px !important;
+}
+
+/* ===== Responsive adjustments for profile page ===== */
+:root {
+    --profile-max-width: 750px;
+}
+
+@media (max-width:1200px) {
+    :root {
+        --profile-max-width: 680px;
+    }
+
+    #profile-card {
+        width: calc(min(88%, var(--profile-max-width)));
+        padding: 20px;
+    }
+}
+
+@media (max-width:900px) {
+    :root {
+        --profile-max-width: 640px;
+    }
+
+    #profile-card {
+        width: calc(94%);
+        min-height: auto !important;
+        padding: 16px;
+    }
+
+    #profile-container {
+        height: auto !important;
+        overflow: visible;
+    }
+
+    #profile-card-footer {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(3, auto);
+        gap: 8px;
+    }
+
+    /* Keep first row in a single line above 640px */
+
+    .section-provider-key {
+        width: 100% !important;
+    }
+}
+
+@media (max-width:640px) {
+    /* Below 640px, stack first row fields */
+    .username-server-uuid {
+        flex-direction: column;
+        gap: 10px;
+    }
+    :root {
+        --profile-max-width: 100%;
+    }
+
+    #profile-card {
+        width: 96%;
+        border-radius: 12px !important;
+        padding: 12px;
+    }
+
+    #personal-information-card {
+        width: 100%;
+        padding: 18px;
+    }
+
+    .authenticator-buttons {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+    }
+
+    #profile-card-header {
+        gap: 8px;
+    }
+
+    .provider-container {
+        gap: 6px;
+    }
+
+    .models-grid {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    }
+
+    .model-tile {
+        padding: 10px;
+    }
+
+    #personal-card-footer button {
+        height: 56px;
+        width: 100%;
+        border-radius: 10px;
+        font-size: 16px;
+    }
+}
+
+@media (max-width:420px) {
+    .category-search-field {
+        padding: 6px 8px !important;
+    }
+
+    .provider-label {
+        font-size: 0.9rem;
+    }
+}
+
+.category-accordion {
+    border: 1px solid var(--pro-border) !important;
+    border-radius: 10px !important;
+    background-color: var(--pro-card);
+    margin-top: 5px;
+    box-shadow: 0 2px 16px rgba(11, 15, 26, 0.1) !important;
+}
+
+.secret-key-input {
+    background-color: var(--pro-surface);
+    border-radius: 10px !important;
+    padding: 12px 16px;
+    width: 90%;
+}

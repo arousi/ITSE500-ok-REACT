@@ -1,27 +1,54 @@
 {
-  "name": "sample-react",
+  "name": "web",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=18 <23"
+  },
   "dependencies": {
-    "@testing-library/jest-dom": "^6.1.5",
-    "@testing-library/react": "^14.1.2",
-    "@testing-library/user-event": "^14.5.1",
-    "babel-preset-react-app": "^10.0.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@google/genai": "^1.15.0",
+    "@google/generative-ai": "^0.24.1",
+    "@mui/icons-material": "^7.2.0",
+    "@mui/material": "^7.2.0",
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^13.5.0",
+    "axios": "^1.10.0",
+    "dotenv": "^17.2.1",
+    "i18next": "^26.3.4",
+    "i18next-browser-languagedetector": "^8.2.1",
+    "js-base64": "^3.7.7",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "react-i18next": "^17.0.8",
+    "react-markdown": "^10.1.0",
+    "react-router-dom": "^7.6.3",
     "react-scripts": "^5.0.1",
-    "serve": "^14.2.1"
+    "react-window": "^1.8.11",
+    "remark-gfm": "^4.0.1",
+    "stylis-plugin-rtl": "^2.1.1",
+    "uuid": "^11.1.0",
+    "web-core": "file:packages/web-core",
+    "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "node sammy.js; serve -s _static -l tcp://0.0.0.0:$PORT -n",
-    "build": "rm -r _static 2>/dev/null; node sammy.js; react-scripts build && mv build _static",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "test:e2e": "playwright test",
     "lint": "eslint src",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy:frontend": "bash scripts/deploy-frontend.sh",
+    "gen:api": "openapi-typescript openapi/schema.yaml -o src/api/schema.d.ts"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
   },
   "browserslist": {
     "production": [
@@ -38,6 +65,9 @@
   "devDependencies": {
     "@babel/plugin-transform-private-property-in-object": "^7.23.4",
     "@playwright/test": "^1.61.1",
-    "msw": "^1.3.5"
+    "msw": "^1.3.5",
+    "http-proxy-middleware": "^3.0.0",
+    "openapi-typescript": "6.7.6",
+    "typescript": "4.9.5"
   }
 }

@@ -1,0 +1,159 @@
+/* ===== History Page Theming (light baseline) ===== */
+:root {
+    /* Light theme palette */
+    --hist-bg: #f5f6fa;                 /* page background */
+    --hist-surface: #eef0f8;            /* subtle surface / gradient base */
+    --hist-card: #ffffff;               /* cards */
+    --hist-border: #e4e7ee;             /* light border */
+    --hist-text: #111827;               /* slate-900 */
+    --hist-muted: #6b7280;              /* gray-500 */
+    --hist-primary: #1976D2;            /* app primary */
+    --hist-primary-soft: rgba(25,118,210,.08);
+    --hist-danger: #dc2626;             /* red-600 */
+    --hist-danger-hover: #b91c1c;
+}
+
+/* Explicit dark theme via data-theme attribute (set by ThemeContext) */
+[data-theme='dark'] {
+    --hist-bg: #0b0f1a;                 /* deep navy */
+    --hist-surface: #0f172a;            /* slate-900 */
+    --hist-card: #111c2a;               /* slightly lighter than surface */
+    --hist-border: #243043;             /* cool border */
+    --hist-text: #e5e7eb;               /* light text */
+    --hist-muted: #9ca3af;              /* muted */
+    --hist-primary: #1976D2;            /* app primary */
+    --hist-primary-soft: rgba(25,118,210,.12);
+    --hist-danger: #ef4444;             /* red-500 */
+    --hist-danger-hover: #dc2626;
+}
+
+/* Container adopts page background with decorative radial overlays */
+#container-history{
+    position: relative;
+     width:100%;
+    margin: 0 auto;
+    padding: 24px 16px 64px;
+    display: flex;
+     height: calc(100vh - 120px) !important;
+    max-height: calc(100vh - 80px) !important;
+    flex-direction: column;
+    gap: 12px;
+    background: var(--hist-bg);
+    border-radius: 0 0 12px 12px;
+    overflow: hidden;
+}
+
+/* Radial ambient light (separate so dark theme can keep contrast) */
+#container-history::before,
+#container-history::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    background:
+        radial-gradient(1200px 400px at 10% -10%, var(--hist-primary-soft), transparent),
+        radial-gradient(1200px 400px at 90% -10%, var(--hist-primary-soft), transparent);
+    z-index:0;
+}
+
+/* Delete all button */
+#deleteAll{
+    align-self: flex-end;
+    color: #fff !important;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: .2px;
+    background: linear-gradient(135deg, var(--hist-danger), var(--hist-danger-hover)) !important;
+    border-radius: 10px !important;
+    padding: 10px 18px !important;
+    box-shadow: 0 8px 18px rgba(239, 68, 68, .25) !important;
+    position: sticky;
+    top: 12px;
+    z-index: 3;
+}
+
+#deleteAll:hover{
+    filter: brightness(1.05);
+    transform: translateY(-1px);
+}
+
+#deleteAll:active{
+    transform: translateY(0);
+}
+
+/* Conversation card */
+#conversation-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 18px;
+    margin-top: 8px;
+    border-radius: 14px;
+    border: 1px solid var(--hist-border);
+    background-color: var(--hist-card);
+    color: var(--hist-text);
+    transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease, background-color 220ms ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,.04);
+    position: relative;
+    z-index: 1; /* above radial overlay */
+}
+
+#conversation-card:hover {
+    box-shadow: 0 10px 24px rgba(0,0,0,.10);
+    transform: translateY(-2px);
+    border-color: rgba(25,118,210,.35);
+}
+
+#title{
+    width: 90%;
+    padding: 8px 4px;
+    height: 100%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+#title .MuiSvgIcon-root{
+    color: var(--hist-primary);
+    background: var(--hist-primary-soft);
+    border-radius: 10px;
+    padding: 6px;
+}
+
+#title .MuiTypography-root{
+    font-weight: 600;
+    letter-spacing: .2px;
+}
+
+#deleteButton{
+    width: 44px;
+    height: 44px;
+    color: #fff;
+    background: linear-gradient(135deg, var(--hist-danger), var(--hist-danger-hover));
+    border-radius: 12px !important;
+    transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
+    box-shadow: 0 8px 16px rgba(239,68,68,.3);
+}
+
+#deleteButton:hover{
+    box-shadow: 0 10px 22px rgba(239,68,68,.38);
+    transform: translateY(-1px);
+    filter: brightness(1.05);
+}
+
+#deleteButton:active{
+    transform: translateY(0);
+}
+
+#deleteButton:focus-visible{
+    outline: 3px solid rgba(239,68,68,.45);
+    outline-offset: 2px;
+}
+
+@media (max-width: 640px){
+    #container-history{ padding: 16px 12px 48px; }
+    #deleteAll{ font-size: 15px; padding: 8px 14px !important; }
+    #conversation-card{ padding: 14px 12px; border-radius: 12px; }
+}
