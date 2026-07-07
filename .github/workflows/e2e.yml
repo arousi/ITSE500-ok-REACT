@@ -1,0 +1,55 @@
+name: E2E
+
+# Manual trigger only for now — not gating PRs yet. Intended to eventually run
+# against the containerized Django backend (E2E_BASE_URL) as part of the
+# cross-repo integration workflow owned by itse500-django
+# (.github/workflows/integration.yml), per ci-test-conventions.md §4.
+on:
+  workflow_dispatch:
+    inputs:
+      e2e_base_url:
+        description: "Base URL to run E2E tests against (defaults to a local build+serve)"
+        required: false
+        type: string
+
+concurrency:
+  group: e2e-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NODE_VERSION: 20
+
+jobs:
+  e2e:
+    name: e2e
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: yarn
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build app (only needed for the default local target)
+        if: ${{ github.event.inputs.e2e_base_url == '' }}
+        run: npx react-scripts build
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Run Playwright E2E suite
+        env:
+          E2E_BASE_URL: ${{ github.event.inputs.e2e_base_url }}
+        run: yarn test:e2e
+
+      - name: Upload Playwright report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 14
