@@ -9,6 +9,7 @@ import {
 } from "./connectServer";
 import logger from '../../../core/logger';
 import env from '../../../config/env';
+import { getManagedAIResponse, getManagedModelsData, MANAGED_PROVIDER_NAME } from './connectManagedAI';
 
 let conversations = [];
 // export async function getAIResponse(text = "", file = null, modelName = "gemini-2.0-flash", auth ,settings) {
@@ -213,7 +214,8 @@ export async function getAllModelsData(keys = {}){
             categories: detectCategories(model.id)
         }));
     // debug logs removed or left intentionally empty
-        return [...googleFormatted , ...openRouterFormatted , ...openAIFormatted, ...hfFormatted];
+        const managedFormatted = await getManagedModelsData();
+        return [...managedFormatted, ...googleFormatted , ...openRouterFormatted , ...openAIFormatted, ...hfFormatted];
     }catch(err){
         logger.error('models', err);
         return [];
@@ -775,6 +777,16 @@ ${prompt}` }] }] });
                 const detail = typeof data === 'string' ? data : JSON.stringify(data || {});
                 console.error(`[OpenAI] HTTP ${status || 'ERR'} at /chat/completions:`, detail);
                 throw new Error(`OpenAI: HTTP ${status || 'ERR'} - ${msg}`);
+            }
+            break;
+        }
+        case MANAGED_PROVIDER_NAME: {
+            try {
+                result = await getManagedAIResponse(modelSelected, messages, settings, signal);
+            } catch (err) {
+                const status = err?.response?.status;
+                const msg = err?.response?.data?.detail || err?.response?.data?.message || err?.message || 'Managed service error';
+                throw new Error(`Ozma Kapa: HTTP ${status || 'ERR'} - ${msg}`);
             }
             break;
         }
