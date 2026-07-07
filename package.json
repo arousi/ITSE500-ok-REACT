@@ -17,7 +17,7 @@
     "build": "rm -r _static 2>/dev/null; node sammy.js; react-scripts build && mv build _static",
     "test": "react-scripts test",
     "test:e2e": "playwright test",
-    "lint": "eslint src --ext .js,.jsx",
+    "lint": "eslint src",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
