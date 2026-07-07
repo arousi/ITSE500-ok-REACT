@@ -4,6 +4,7 @@ import './index.css';
 import './i18n';
 import App from './App';
 import { validateEnv } from './config/env';
+import ErrorBoundary from './components/ErrorBoundary';
 import { SecretKeysProvider } from './features/profile/contexts/SecretKeysContext';
 import { CategoryProvider } from './features/profile/contexts/CategoryContext';
 import { ActivateLLMsProviderReactProvider } from './features/profile/contexts/ActivateLLMsProviderContext';
@@ -32,6 +33,7 @@ try {
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+   <ErrorBoundary>
    <OpenFieldProvider>
     <ActivateLLMsProviderReactProvider>
       <CategoryProvider>
@@ -53,6 +55,7 @@ root.render(
       </CategoryProvider>
     </ActivateLLMsProviderReactProvider>
    </OpenFieldProvider>
+   </ErrorBoundary>
     
   </React.StrictMode>
 );
