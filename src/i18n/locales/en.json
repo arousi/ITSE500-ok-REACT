@@ -1,0 +1,87 @@
+{
+  "common": {
+    "or": "or",
+    "loading": "Loading…",
+    "continueAsGuest": "Continue as guest",
+    "signIn": "Sign in",
+    "signingIn": "Signing in…",
+    "save": "Save",
+    "cancel": "Cancel",
+    "submit": "Submit",
+    "back": "Back",
+    "next": "Next"
+  },
+  "login": {
+    "username": "Username",
+    "password": "Password",
+    "newUser": "New user?",
+    "signUp": "Sign up",
+    "forgotPassword": "Forgot password?",
+    "resetNow": "Reset now",
+    "welcomeGuest": "Welcome back, guest.",
+    "loginSuccess": "Signed in successfully",
+    "serverOfflineGuest": "Server is offline. Continuing as guest locally.",
+    "guestUnable": "Unable to start guest session.",
+    "errors": {
+      "fillAll": "Please fill in all fields",
+      "offline": "You are offline. Please check your internet connection.",
+      "serverUnreachable": "Server unreachable. Please try again later.",
+      "invalidCreds": "Invalid username or password.",
+      "tooMany": "Too many attempts. Please wait and try again.",
+      "generic": "Login failed. Please try again."
+    }
+  },
+  "register": {
+    "title": "Create account",
+    "username": "Username",
+    "email": "Email",
+    "emailOrPhone": "Email or phone",
+    "password": "Password",
+    "confirmPassword": "Confirm password",
+    "alreadyUser": "Already have an account?",
+    "login": "Log in",
+    "signUp": "Sign up"
+  },
+  "otp": {
+    "title": "Confirmation code",
+    "subtitle": "Enter the code we sent you",
+    "confirmationCode": "Confirmation code",
+    "verify": "Verify",
+    "resend": "Resend code",
+    "errors": {
+      "invalid": "Invalid or expired code. Please try again.",
+      "required": "Please enter the full code."
+    }
+  },
+  "forgotPassword": {
+    "title": "Reset your password",
+    "newPassword": "New password",
+    "confirmPassword": "Confirm password",
+    "returnToLogin": "Return to the login page",
+    "returnToRegister": "Return to the register page",
+    "success": "Password reset. You can now sign in.",
+    "errors": {
+      "mismatch": "Passwords do not match.",
+      "weak": "Password is too weak."
+    }
+  },
+  "nav": {
+    "home": "Home",
+    "history": "History",
+    "profile": "Profile",
+    "settings": "Settings",
+    "feedback": "Send feedback",
+    "logout": "Log out"
+  },
+  "settings": {
+    "title": "Settings",
+    "language": "Language",
+    "appearance": "Appearance",
+    "theme": "Theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System",
+    "english": "English",
+    "arabic": "العربية"
+  }
+}

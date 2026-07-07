@@ -1,0 +1,219 @@
+:root {
+    --auth-card-bg: #FFFAFA;
+    /* align with Flutter */
+    --auth-card-text: #000000;
+    --auth-input-bg: #FFFFFF;
+    --auth-border: #e6e6eb;
+    --auth-primary: #1976D2;
+    /* Flutter primary */
+    --auth-primary-hover: #115293;
+}
+
+[data-theme='dark'] {
+    --auth-card-bg: #1C1B1F;
+    /* Flutter appBarColor */
+    --auth-card-text: #FFFFFF;
+    --auth-input-bg: #1C1B1F;
+    --auth-border: #2a2a2a;
+    --auth-primary: #1976D2;
+    --auth-primary-hover: #1565C0;
+}
+
+.login-card {
+    padding: 24px;
+    width: min(580px, 92%);
+    min-height: 620px;
+    border-radius: 23px !important;
+    text-align: center;
+    background-color: var(--auth-card-bg) !important;
+    color: var(--auth-card-text);
+    border: 1px solid var(--auth-border);
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.16);
+    margin: 20px auto;
+}
+
+#login-button {
+    width: 60% !important;
+    font-size: 1.5em !important;
+    height: 60px !important;
+    background-color: var(--auth-primary) !important;
+    color: #fff !important;
+    text-transform: none !important;
+    border-radius: 10px !important;
+}
+
+#login-button:hover {
+    background-color: var(--auth-primary-hover) !important;
+    box-shadow: 0 8px 18px rgba(25, 118, 210, 0.30);
+}
+
+.login-card div {
+    margin-top: 8px;
+}
+
+#body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+}
+
+#body input {
+    border-radius: 12px;
+    border: 1px solid var(--auth-border);
+    background-color: var(--auth-input-bg);
+    color: var(--auth-card-text);
+}
+
+#footer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#footer .text,
+p {
+    text-align: center;
+}
+
+/* Make MUI inputs match the card in both themes */
+.login-card .MuiTextField-root .MuiInputBase-root {
+    background: var(--auth-input-bg);
+    color: var(--auth-card-text);
+    border-radius: 12px;
+}
+
+.login-card .MuiOutlinedInput-notchedOutline {
+    border-color: var(--auth-border);
+}
+
+.login-card .Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: var(--auth-border);
+}
+
+#body div {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 15px;
+}
+
+#header {
+    display: flex;
+    justify-content: center !important;
+}
+
+#header div {
+    width: 100px !important;
+    height: 100px !important;
+}
+
+#footer button {
+    margin-top: 20px;
+    width: 100%;
+}
+
+/* Auth providers block like register page */
+.auth-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.auth-buttons button,
+.auth-buttons img {
+    width: 50px;
+    height: 50px;
+}
+
+.auth-buttons button {
+    margin: auto;
+    background-color: var(--auth-input-bg);
+}
+
+/* Primary buttons unified look */
+.buttons-login {
+    background-color: var(--auth-primary) !important;
+    color: #fff !important;
+    text-transform: none !important;
+    border-radius: 10px !important;
+}
+
+.buttons-login:hover {
+    background-color: var(--auth-primary-hover) !important;
+    box-shadow: 0 8px 18px rgba(25, 118, 210, 0.30);
+}
+
+#footer .guest-button {
+    text-transform: capitalize !important;
+    font-size: 1.3em !important;
+    height: 45px !important;
+    background-color: #1C1B1F;
+    color: #ffffff;
+}
+
+.text {
+    font-size: 1.4em !important;
+}
+
+/* ===== Responsive adjustments ===== */
+@media (max-width: 900px) {
+    .login-card {
+        width: 92%;
+        min-height: auto;
+        padding: 20px;
+    }
+
+    #login-button {
+        width: 100% !important;
+        height: 56px !important;
+        font-size: 1.1em !important;
+    }
+
+    #footer .guest-button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 640px) {
+    .login-card {
+        width: 96%;
+        border-radius: 16px !important;
+        padding: 16px;
+        margin: 12px auto;
+    }
+
+    #header div {
+        width: 72px !important;
+        height: 72px !important;
+    }
+
+    #body {
+        gap: 8px;
+    }
+
+    #footer {
+        gap: 8px;
+    }
+
+    .text {
+        font-size: 1.1em !important;
+    }
+
+    .auth-buttons button,
+    .auth-buttons img {
+        width: 44px;
+        height: 44px;
+    }
+}
+
+@media (max-width: 420px) {
+    .login-card {
+        padding: 12px;
+    }
+
+    #login-button {
+        height: 50px !important;
+        font-size: 1em !important;
+    }
+}

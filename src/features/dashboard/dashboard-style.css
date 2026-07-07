@@ -1,0 +1,451 @@
+/* Theme variables for Dashboard surfaces */
+:root {
+    --drawer-width: 350px;
+    --gutter: 16px;
+    /* Flutter-aligned light surfaces */
+    --dashboard-surface: #FFFAFA;
+    /* appBackgroundColor */
+    --dashboard-text: #000000;
+    --dashboard-drawer-bg: #FFFAFA;
+    --dashboard-accent: #064482;
+    /* socialButtonColor for accents/scrollbars */
+    --dashboard-button: #1976D2;
+    /* primaryAppColor for main buttons */
+}
+
+[data-theme='dark'] {
+    --dashboard-surface: #1C1B1F;
+    /* Flutter appBarColor as dark surface */
+    --dashboard-text: #FFFFFF;
+    --dashboard-drawer-bg: #1C1B1F;
+    --dashboard-accent: #064482;
+    --dashboard-button: #1976D2;
+    /* keep primary in dark */
+}
+
+#conversations-container {
+    /* Let the list grow to fill available space above the footer */
+    background-color: var(--dashboard-surface);
+    margin-bottom: 8px;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    flex: 1 1 auto;
+    height: 100%;
+}
+
+.conv-empty {
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 13px;
+    padding: 8px;
+}
+
+[data-theme='dark'] .conv-empty {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.conversations-list::-webkit-scrollbar {
+    width: 12px;
+    /* حدد عرض شريط التمرير */
+}
+
+.conversations-list::-webkit-scrollbar-thumb {
+    background: var(--dashboard-accent);
+    border-radius: 6px;
+}
+
+.conversations-list {
+    max-height: 100%;
+    overflow-y: auto;
+    flex: 1 1 auto;
+    min-height: 80%;
+    width: 100%;
+}
+
+#menu-items {
+    width: var(--drawer-width);
+    background-color: var(--dashboard-drawer-bg);
+    overflow-x: hidden;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    height: 100vh;
+    z-index: 1100;
+    /* ensure the drawer sits above fixed chat controls */
+}
+
+
+#dashboard {
+    height: 100%;
+    overflow-x: hidden;
+    display: flex;
+}
+
+#appbar {
+    display: flex;
+    width: 95%;
+    height: 100%;
+    margin-right: 0;
+    overflow-x: hidden;
+
+}
+
+#drawer {
+    overflow-x: hidden;
+    flex-grow: 0;
+}
+
+#appbar {
+    display: flex;
+}
+
+#list-items {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+
+
+}
+
+#menu-list {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+}
+
+/* Drawer header + close button */
+.drawer-header {
+    display: flex;
+    height: 65px !important;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+.drawer-close-btn {
+    width: 40px !important;
+    min-width: 40px !important;
+}
+
+/* Conversations slot inside drawer should stretch and allow inner scroll */
+.drawer-conversations-slot {
+    flex: 1 1 auto;
+    align-items: stretch;
+    min-height: 0;
+    display: flex;
+}
+
+/* footer container inside the drawer that will be pushed to the bottom */
+.menu-footer {
+    margin-top: auto;
+    width: 100%;
+    display: block;
+}
+
+#list-items .menu-item {
+    width: 100%;
+}
+
+.list-buttons {
+    background-color: var(--dashboard-button) !important;
+    display: flex;
+    height: 50px;
+    width: 100%;
+    border-radius: 10px !important;
+    font-size: 23px !important;
+    justify-content: center !important;
+    color: #ffffff !important;
+    gap: 10px;
+    text-align: center !important;
+    transition: all 0.3s ease;
+}
+
+.name-button {
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.list-buttons .name-button {
+    transition: all 0.3s ease;
+}
+
+.list-buttons .name-button:hover {
+    letter-spacing: 2px !important;
+
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+}
+
+.list-buttons:hover {
+    background-color: #115293 !important;
+    /* darker primary */
+    color: #ffffff !important;
+}
+
+#dashboard-container {
+    width: 100%;
+    height: 80%;
+
+
+    padding: 0 !important;
+    display: flex !important;
+    justify-content: center !important;
+    flex-direction: column !important;
+}
+
+.conversation-title {
+    font-size: 1.2rem !important;
+    font-weight: 500 !important;
+    padding-left: 10px !important;
+}
+
+#dashboard-container::-webkit-scrollbar {
+    width: 12px;
+    /* حدد عرض شريط التمرير */
+}
+
+#dashboard-container::-webkit-scrollbar-thumb {
+    background: var(--dashboard-accent);
+    border-radius: 6px;
+}
+
+#dashboard {
+
+    overflow-y: hidden;
+    position: relative;
+    top: 64px;
+}
+
+#logout-button {
+    border-radius: 10px !important;
+    color: white;
+    background: #C22527 !important;
+    /* Flutter logoutButtonColor */
+}
+
+#newChatBtn {
+    margin: auto;
+    width: 80%;
+    padding: 10px;
+    text-align: center;
+
+}
+
+.menu-drawer-items {
+    display: flex !important;
+    flex-direction: column !important;
+    /* Fill the full height of the drawer so spacer behavior works consistently across browsers */
+    height: 100%;
+    box-sizing: border-box;
+}
+
+#conversations-container {
+    align-items: center;
+    width: 100%;
+}
+
+.navigate-buttons {
+    /* Let this block be pushed to the bottom by flexbox instead of hard-coded top offsets */
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-bottom: 12px;
+}
+
+/* ===== Responsive adjustments ===== */
+/* drawer width and gutter remain responsive variables */
+:root {
+    --drawer-width: 260px;
+    --gutter: 16px;
+}
+
+/* Large screens keep current layout, progressively adapt below */
+@media (max-width:1200px) {
+    :root {
+        --drawer-width: 220px;
+    }
+
+    #menu-items {
+        width: var(--drawer-width);
+    }
+
+    #appbar {
+        width: calc(100% - var(--drawer-width));
+        margin-left: var(--drawer-width);
+    }
+
+    #dashboard {
+        top: 64px;
+    }
+
+    /* rely on flexbox spacer in .menu-drawer-items to push navigate-buttons to bottom */
+    .navigate-buttons {
+        margin-top: auto;
+    }
+}
+
+@media (max-width:900px) {
+    :root {
+        --drawer-width: 200px;
+    }
+
+    #menu-items {
+        width: var(--drawer-width);
+        height: 100vh;
+    }
+
+    #appbar {
+        width: calc(100% - var(--drawer-width));
+        margin-left: var(--drawer-width);
+    }
+
+    #dashboard {
+        top: 56px;
+    }
+
+    #dashboard-container {
+        padding: 8px !important;
+    }
+
+    #menu-list {
+        width: 100%;
+    }
+
+    .menu-drawer-items {
+        gap: 8px;
+    }
+
+    .navigate-buttons {
+        position: relative;
+        top: auto;
+        margin-top: 12px;
+        display: flex;
+        justify-content: center
+    }
+}
+
+@media (max-width:640px) {
+    :root {
+        --drawer-width: 100%;
+    }
+
+    /* Drawer becomes overlay-like on small screens */
+    #menu-items {
+        width: 100% !important;
+        font-size: 23px;
+        height: calc(100vh - 56px);
+        position: fixed;
+        top: 56px;
+        left: 0;
+        background-color: var(--dashboard-drawer-bg);
+        z-index: 1400;
+        overflow-y: auto;
+    }
+
+    #appbar {
+        width: 100% !important;
+        margin-left: 0 !important;
+        background-color: var(--dashboard-surface);
+    }
+
+    #dashboard {
+        top: 56px;
+    }
+
+    #drawer {
+        display: none;
+    }
+
+    #list-items .menu-item {
+        width: 100%;
+    }
+
+    #menu-list {
+        padding: 8px;
+    }
+
+    #logout-button {
+        width: 90%;
+        margin: auto;
+    }
+
+    #newChatBtn {
+        width: 90%;
+    }
+
+    /* Make the drawer footer stick naturally to bottom by using column layout */
+    .menu-footer {
+        position: static;
+        padding: 12px 8px;
+    }
+
+    /* Reduce nav text/icon size slightly to avoid wrap */
+    .list-buttons {
+        height: 46px;
+    }
+
+    .list-buttons .name-button {
+        font-size: 0.95em !important;
+    }
+}
+
+/* General small tweaks */
+@media (max-width:480px) {
+
+    #menu-list,
+    #menu-items,
+    #dashboard-container {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    #appbar .MuiTypography-root {
+        font-size: 1rem;
+    }
+}
+
+/* AppBar controls alignment: keep consistent spacing regardless of drawer open state */
+.appbar-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-left: auto;
+    /* let toolbar's flex layout push controls to the right */
+    position: static;
+    /* remove absolute so it stays in the flow */
+}
+
+.appbar-controls .sync-toggle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+@media (max-width:900px) {
+    .appbar-controls {
+        gap: 8px;
+    }
+
+    .appbar-controls .sync-toggle>span {
+        display: none;
+    }
+}
+
+@media (max-width:640px) {
+    .appbar-controls {
+        gap: 8px;
+        padding-right: 8px;
+    }
+}

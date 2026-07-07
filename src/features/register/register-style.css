@@ -1,0 +1,216 @@
+/* ===== Register Page Theming (Light/Dark) ===== */
+:root {
+    --reg-card-bg: #FFFAFA;
+    /* Flutter appBackgroundColor */
+    --reg-card-text: #000000;
+    /* Light text */
+    --reg-input-bg: #FFFFFF;
+    /* Inputs on light */
+    --reg-border: #e6e6eb;
+    --reg-primary: #1976D2;
+    /* Flutter primaryAppColor */
+    --reg-primary-hover: #115293;
+    /* darker primary */
+}
+
+[data-theme='dark'] {
+    --reg-card-bg: #1C1B1F;
+    /* Flutter appBarColor as surface */
+    --reg-card-text: #FFFFFF;
+    /* Dark text */
+    --reg-input-bg: #1C1B1F;
+    /* Inputs blend in dark */
+    --reg-border: #2a2a2a;
+    --reg-primary: #1976D2;
+    /* same primary */
+    --reg-primary-hover: #1565C0;
+}
+
+/* ===== Card ===== */
+.register-card {
+    padding: 24px;
+    width: min(580px, 92%);
+    min-height: 620px;
+    border-radius: 23px !important;
+    text-align: center;
+    background-color: var(--reg-card-bg) !important;
+    color: var(--reg-card-text);
+    border: 1px solid var(--reg-border);
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.16);
+    margin: 20px auto;
+}
+
+.register-card div {
+    margin-top: 8px;
+}
+
+/* ===== Layout bits ===== */
+#header {
+    display: flex;
+    justify-content: center;
+}
+
+#body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+}
+
+#footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+/* ===== Inputs (MUI) ===== */
+#body input {
+    border-radius: 12px;
+    background-color: var(--reg-input-bg);
+}
+
+.register-card .MuiTextField-root .MuiInputBase-root {
+    background: var(--reg-input-bg);
+    color: var(--reg-card-text);
+    border-radius: 12px;
+}
+
+.register-card .MuiOutlinedInput-notchedOutline {
+    border-color: var(--reg-border);
+}
+
+.register-card .Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: var(--reg-border);
+}
+
+/* ===== Primary buttons ===== */
+#footer .register-buttons {
+    width: 60% !important;
+    font-size: 1.5em !important;
+    height: 60px !important;
+    background-color: var(--reg-primary) !important;
+    color: #fff !important;
+    text-transform: none !important;
+    border-radius: 10px !important;
+}
+
+#footer .guest-button {
+    text-transform: capitalize !important;
+    font-size: 1.3em !important;
+    height: 45px !important;
+    background-color: #1C1B1F;
+    /* continueAsGuestColor */
+    color: #ffffff;
+}
+
+#footer .register-buttons:hover {
+    background-color: var(--reg-primary-hover) !important;
+    box-shadow: 0 8px 18px rgba(25, 118, 210, 0.30);
+}
+
+/* ===== Auth provider buttons ===== */
+.auth-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+}
+
+.auth-buttons button {
+    width: 65% !important;
+    height: 40px;
+    font-size: 1.35em;
+    ;
+    border-radius: 20px;
+    color: var(--reg-card-text);
+    text-transform: capitalize;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: all 200ms ease;
+    background-color: var(--reg-input-bg) !important;
+    transition: all 200ms ease;
+}
+
+.auth-buttons button:hover {
+    filter: brightness(1.03);
+    letter-spacing: 2px;
+    padding: 0 12px;
+    background-color: #064482 !important;
+    /* socialButtonColor */
+}
+
+#footer .text,
+p {
+    text-align: center;
+}
+
+.MuiTextField-root .MuiInputBase-root {
+    font-size: large !important
+}
+
+.text {
+    font-size: 1.4em !important;
+}
+
+/* ===== Responsive adjustments ===== */
+@media (max-width: 900px) {
+    .register-card {
+        width: 92%;
+        min-height: auto;
+        padding: 20px;
+    }
+
+    #footer .register-buttons {
+        width: 100% !important;
+        height: 56px !important;
+        font-size: 1.1em !important;
+    }
+
+    #footer .guest-button {
+        width: 100%;
+    }
+
+    .auth-buttons button {
+        width: 90% !important;
+    }
+}
+
+@media (max-width: 640px) {
+    .register-card {
+        width: 96%;
+        border-radius: 16px !important;
+        padding: 16px;
+        margin: 12px auto;
+    }
+
+    #header {
+        gap: 4px;
+    }
+
+    .text {
+        font-size: 1.1em !important;
+    }
+
+    .auth-buttons {
+        gap: 6px;
+    }
+
+    .auth-buttons button {
+        height: 38px;
+        font-size: 1.05em;
+        border-radius: 14px;
+    }
+}
+
+@media (max-width: 420px) {
+    .register-card {
+        padding: 12px;
+    }
+
+    #footer .register-buttons {
+        height: 50px !important;
+        font-size: 1em !important;
+    }
+}
