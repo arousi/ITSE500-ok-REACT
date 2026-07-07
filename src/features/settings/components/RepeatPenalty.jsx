@@ -1,14 +1,16 @@
 import {Card , Slider  , Typography } from "@mui/material";
 import {useContext} from 'react';
+import { useTranslation } from "react-i18next";
 import {SettingsContext} from "../contexts/SettingsContext";
 import {ChatInferenceOptionContext} from "../contexts/ChatInferenceOptionContext";
 export default function RepeatPenalty() {
+    const { t } = useTranslation();
     const {settings , setSettings} = useContext(SettingsContext);
     const {chatInferenceOption} = useContext(ChatInferenceOptionContext);
     return(
         <Card className={"card"}>
 
-            <Typography sx={{fontSize:30}}>Repeat penalty</Typography>
+            <Typography sx={{fontSize:30}}>{t('settingsPage.chatInference.repeatPenalty')}</Typography>
             <h2>{settings.repeat_penalty}</h2>
             <Slider step={0.01}
                     disabled={!chatInferenceOption.repeatPenaltyOpen}
@@ -16,7 +18,7 @@ export default function RepeatPenalty() {
                     min={1.05} max={1.2}
                     onChange={handleRepeatPenaltyChange}
                     valueLabelDisplay="auto"/>
-            <p style={{fontSize:"18px"}}>How much to discourage repeating the same token</p>
+            <p style={{fontSize:"18px"}}>{t('settingsPage.chatInference.repeatPenaltyHelp')}</p>
 
         </Card>
     )

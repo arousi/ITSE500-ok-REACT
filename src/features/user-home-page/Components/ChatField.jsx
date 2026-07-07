@@ -39,7 +39,9 @@ import {useToast} from "../../dashboard-auth/custom-hooks/useToast";
 import { v4 as uuidv4 } from 'uuid';
 import { OptionStorageContext } from '../../profile/contexts/OptionStorageContext';
 import { OpenDrawerContext } from '../../dashboard/contexts/OpenDrawerContext';
+import { useTranslation } from "react-i18next";
 export default function ChatField() {
+    const { t } = useTranslation();
     const {settings} = useContext(SettingsContext);
     const {modelSelected} = useContext(ModelSelectedContext);
     const { keys } = useContext(SecretKeysContext);
@@ -84,7 +86,7 @@ export default function ChatField() {
          const k = keyMap[providerKey] || providerKey;
          const isConnected = !!keys?.[k]?.enabled && !!keys?.[k]?.key && !!keys?.[k]?.valid;
          if (!isConnected) {
-             showToast('المزوّد غير متصل أو المفتاح غير صالح. يرجى التحقق من الإعدادات.', 'error');
+             showToast(t('chat.errors.providerNotConnected'), 'error');
              return;
          }
 
@@ -356,7 +358,7 @@ export default function ChatField() {
              } else {
                  console.error("❌ خطأ:", error);
                  // أظهر رسالة خطأ ودية للمستخدم
-                 showToast(error?.message || 'حدث خطأ في الاتصال. حاول مجددًا.', 'error');
+                 showToast(error?.message || t('chat.errors.connectionError'), 'error');
              }
          }finally {
              setIsLoading(false);
@@ -407,7 +409,7 @@ export default function ChatField() {
                                         setFilePath("");
                                         setFile(null);
                                     }}
-                                    aria-label="إلغاء المعاينة"
+                                    aria-label={t('chat.cancelPreview')}
                                     size="small"
                                 >
                                     <Cancel fontSize="small"/>
@@ -426,7 +428,7 @@ export default function ChatField() {
                                     return (
                                         <img
                                             src={resolvedSrc || undefined}
-                                            alt={"Uploaded Preview"}
+                                            alt={t('chat.uploadedPreview')}
                                         />
                                     );
                                 })()}
@@ -435,7 +437,7 @@ export default function ChatField() {
                                         {(file?.type?.split('/')?.[1] || (file?.type || 'FILE')).toUpperCase()}
                                     </div>
                                     <div className="attachment-meta">
-                                        <div className="attachment-name">{file?.name || 'Attachment'}</div>
+                                        <div className="attachment-name">{file?.name || t('chat.attachment')}</div>
                                         <div className="attachment-type">{(file?.type || '').toUpperCase()}</div>
                                     </div>
                                 </div>
@@ -459,19 +461,19 @@ export default function ChatField() {
                                     const v = e.target.value;
                                     if (v !== text) setText(v);
                                 }}
-                                placeholder={"type a message..."}
-                                aria-label="Message input field"
+                                placeholder={t('chat.placeholder')}
+                                aria-label={t('chat.messageInputField')}
                             />
                         </div>
                         <div className="input-hints" aria-hidden>
-                            Enter to send • Shift+Enter for new line
+                            {t('chat.inputHints')}
                         </div>
                     </div>
                 </div>
 
                 <div className={"first-row-second-column"}>
                     {isLoading ? (
-                        <Tooltip title="stop" arrow>
+                        <Tooltip title={t('chat.stop')} arrow>
                             <span>
                                 <IconButton className="send-btn danger" onClick={() => controller?.abort()}>
                                     <Stop/>
@@ -479,7 +481,7 @@ export default function ChatField() {
                             </span>
                         </Tooltip>
                     ) : (
-                        <Tooltip title="send" arrow>
+                        <Tooltip title={t('chat.send')} arrow>
                             <span>
                                 <IconButton
                                     className="send-btn"

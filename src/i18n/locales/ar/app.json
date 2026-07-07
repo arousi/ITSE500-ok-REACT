@@ -1,0 +1,58 @@
+{
+  "nav": {
+    "home": "الرئيسية",
+    "history": "السجل",
+    "profile": "الملف الشخصي",
+    "settings": "الإعدادات",
+    "feedback": "إرسال ملاحظات",
+    "logout": "تسجيل الخروج"
+  },
+  "dashboard": {
+    "useLocalStorage": "استخدام التخزين المحلي",
+    "useSyncedStorage": "استخدام التخزين المتزامن",
+    "newChat": "محادثة جديدة",
+    "synced": "متزامن",
+    "local": "محلي",
+    "viewAll": "عرض الكل",
+    "confirmLogout": "هل تريد فعلاً تسجيل الخروج من النظام؟",
+    "feedback": "الملاحظات",
+    "mailClientError": "تعذّر فتح تطبيق البريد على هذا الجهاز.",
+    "ok": "موافق",
+    "noConversations": "لا توجد محادثات بعد",
+    "conversation": "محادثة",
+    "archivedProfileSuccess": "تمت أرشفة الملف الشخصي بنجاح",
+    "deletedProfileSuccess": "تم حذف الملف الشخصي بنجاح",
+    "loggedOutSuccess": "تم تسجيل الخروج بنجاح",
+    "deletedAllChatsSuccess": "تم حذف جميع المحادثات بنجاح"
+  },
+  "chat": {
+    "send": "إرسال",
+    "stop": "إيقاف",
+    "placeholder": "اكتب رسالة...",
+    "messageInputField": "حقل إدخال الرسالة",
+    "inputHints": "Enter للإرسال • Shift+Enter لسطر جديد",
+    "scrollToTop": "التمرير للأعلى",
+    "welcomeMessage": "مرحبًا {{name}}! اسألني عن أي شيء.",
+    "cancelPreview": "إلغاء المعاينة",
+    "uploadedPreview": "معاينة الملف المرفوع",
+    "attachment": "مرفق",
+    "uploading": "جارٍ الرفع...",
+    "uploadFile": "رفع ملف",
+    "userAttachment": "مرفق المستخدم",
+    "userAttachmentIcon": "أيقونة مرفق المستخدم",
+    "processing": "جارِ المعالجة...",
+    "aiOutput": "ناتج الذكاء الاصطناعي",
+    "downloadImage": "تنزيل الصورة",
+    "download": "تنزيل",
+    "copiedTooltip": "تم النسخ!",
+    "copyContent": "نسخ المحتوى",
+    "copy": "نسخ",
+    "copied": "تم النسخ",
+    "copyCode": "نسخ الكود",
+    "selectModel": "اختر النموذج",
+    "errors": {
+      "providerNotConnected": "المزوّد غير متصل أو المفتاح غير صالح. يرجى التحقق من الإعدادات.",
+      "connectionError": "حدث خطأ في الاتصال. يرجى المحاولة مرة أخرى."
+    }
+  }
+}

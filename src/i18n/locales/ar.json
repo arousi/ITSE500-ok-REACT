@@ -40,7 +40,14 @@
     "confirmPassword": "تأكيد كلمة المرور",
     "alreadyUser": "لديك حساب بالفعل؟",
     "login": "تسجيل الدخول",
-    "signUp": "إنشاء حساب"
+    "signUp": "إنشاء حساب",
+    "signingUp": "جارٍ إنشاء الحساب…",
+    "errors": {
+      "fillAll": "يرجى تعبئة جميع الحقول",
+      "invalidEmail": "أدخل بريدًا إلكترونيًا صحيحًا",
+      "connection": "مشكلة في الاتصال بالخادم. يرجى المحاولة لاحقًا.",
+      "failed": "فشل إنشاء الحساب. يرجى المحاولة مرة أخرى."
+    }
   },
   "otp": {
     "title": "رمز التأكيد",
@@ -83,5 +90,104 @@
     "system": "النظام",
     "english": "English",
     "arabic": "العربية"
+  },
+  "settingsPage": {
+    "chatInference": {
+      "title": "خيار الاستدلال في المحادثة",
+      "temperature": "درجة الحرارة",
+      "temperatureHelp": "مقدار العشوائية التي سيتم إدخالها. القيمة 0 تعطي نفس النتيجة في كل مرة، بينما القيم الأعلى تزيد الإبداع والتنوع",
+      "topK": "Top k",
+      "topKHelp": "الحد الأدنى لاحتمالية اختيار الرمز (token) لإخراجه",
+      "minP": "Min p",
+      "minPHelp": "الحد الأدنى لاحتمالية اختيار الرمز (token) لإخراجه",
+      "topP": "Top p",
+      "topPHelp": "الحد الأقصى لاحتمالية اختيار الرمز (token) لإخراجه",
+      "repeatPenalty": "عقوبة التكرار",
+      "repeatPenaltyHelp": "مدى تثبيط تكرار نفس الرمز (token)"
+    },
+    "appearance": {
+      "title": "المظهر",
+      "lightMode": "الوضع الفاتح",
+      "systemDefault": "افتراضي النظام",
+      "darkMode": "الوضع الداكن"
+    },
+    "pickProvider": {
+      "defaultProvider": "المزود الافتراضي:"
+    },
+    "configDialog": {
+      "title": "الإعدادات المتقدمة",
+      "providers": "المزودون",
+      "settings": "الإعدادات",
+      "systemPrompt": "تعليمات النظام",
+      "systemPromptPlaceholder": "أدخل تعليمة نظام دائمة (مثال: أنت مساعد مفيد...)",
+      "limitResponseLength": "تحديد طول الرد",
+      "maxTokens": "الحد الأقصى للرموز",
+      "sampling": "أخذ العينات",
+      "structuredOutput": "الإخراج المنظم",
+      "structuredOutputJsonSchema": "الإخراج المنظم (مخطط JSON)",
+      "optionsStorage": "خيارات التخزين",
+      "selectStorageOption": "اختر خيار التخزين:",
+      "localStorage": "تخزين محلي",
+      "mixedOnly": "مختلط فقط",
+      "close": "إغلاق"
+    }
+  },
+  "profile": {
+    "createNewAccount": "إنشاء حساب جديد",
+    "providers": "المزودون",
+    "authentication": "المصادقة",
+    "archiveOrDeleteAccount": "أرشفة أو حذف الحساب",
+    "personalInformation": "المعلومات الشخصية",
+    "username": "اسم المستخدم",
+    "serverUuid": "معرف الخادم (UUID)",
+    "email": "البريد الإلكتروني",
+    "phoneNumber": "رقم الهاتف",
+    "firstName": "الاسم الأول",
+    "lastName": "اسم العائلة",
+    "saveAllChanges": "حفظ جميع التغييرات",
+    "statusNotSet": "غير محدد",
+    "statusConnected": "متصل",
+    "statusDisconnected": "غير متصل",
+    "baseUrl": "الرابط الأساسي",
+    "secretKey": "المفتاح السري",
+    "models": "النماذج",
+    "fetchModels": "جلب النماذج",
+    "filterModels": "تصفية النماذج",
+    "noModelsAvailable": "لا توجد نماذج متاحة",
+    "selectionNone": "لا شيء",
+    "selectionAll": "الكل",
+    "selectionPart": "جزء",
+    "searchInCategory": "بحث في {{category}}",
+    "conversationsStorage": "تخزين المحادثات",
+    "selectOption": "اختر خيارًا: ",
+    "localOnly": "محلي فقط",
+    "mixedOnly2": "مختلط فقط",
+    "deleteDialog": {
+      "title": "إغلاق حسابك",
+      "chooseOption": "اختر أحد الخيارات أدناه؛ الأرشفة تعطّل الوصول وتُجدوِل الحذف خلال ~30 يومًا.",
+      "deletingRemovesImmediately": "الحذف يزيل حسابك فورًا.",
+      "noGuaranteeBackups": "لا يوجد ضمان بإزالة بيانات حسابك من نسخنا الاحتياطية السابقة لقاعدة البيانات.",
+      "reasonFeedback": "السبب / الملاحظات (اختياري)",
+      "permanentlyDeleteNow": "الحذف نهائيًا الآن",
+      "turnOffToArchive": "أوقف التبديل للأرشفة بدلاً من ذلك",
+      "delete": "حذف",
+      "archive": "أرشفة",
+      "accountDeletion": "حذف الحساب",
+      "willBeDeleted": "سيتم حذف حسابك نهائيًا.",
+      "accountArchival": "أرشفة الحساب",
+      "willBeArchived": "سيتم أرشفة حسابك."
+    },
+    "oauth": {
+      "enableOpenRouterSignIn": "مفعّل لإظهار تسجيل الدخول عبر OpenRouter في شاشة الدخول",
+      "enableGoogleSignIn": "مفعّل لإظهار تسجيل الدخول عبر Google في شاشة الدخول"
+    }
+  },
+  "history": {
+    "deleteAll": "حذف الكل",
+    "deleteAllConversationsTitle": "حذف جميع المحادثات",
+    "deleteAllConversationsConfirm": "هل تريد فعلاً حذف جميع المحادثات؟ لا يمكن التراجع عن هذا الإجراء.",
+    "conversation": "محادثة",
+    "conversationDeletedSuccess": "تم حذف المحادثة بنجاح",
+    "conversationDeleteFailed": "فشل حذف المحادثة"
   }
 }

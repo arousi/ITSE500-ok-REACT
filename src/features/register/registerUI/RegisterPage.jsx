@@ -10,7 +10,10 @@ import {
 import "../register-style.css";
 import { useContext, useState, useEffect, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
+import LanguageSwitcher from "../../settings/components/LanguageSwitcher";
+import env from "../../../config/env";
 import AuthButtons from "../components/AuthButtons";
 import EmailField from "../components/EmailField";
 import PasswordField from "../components/PasswordField";
@@ -29,6 +32,7 @@ import { checkRequiredRegisterData, validateEmail } from "../../dashboard/logic/
 import { useToast } from "../../dashboard-auth/custom-hooks/useToast";
 import { ThemeContext } from "../../settings/contexts/ThemeContext";
 export default function RegisterPage() {
+    const { t } = useTranslation();
     const { setAuth, setOperationType } = useAuth();
     const navigate = useNavigate();
     const { showToast } = useToast();
@@ -56,7 +60,7 @@ export default function RegisterPage() {
             if (validateEmail(userRegister.email)) {
                 try {
                     if (checkServerConnect().source === "local") {
-                        showToast("Server is unreachable. Please try again later.", "error");
+                        showToast(t('login.errors.serverUnreachable'), "error");
                         setAuth(null);
                         setIsSubmitting(false);
                         return;
@@ -75,7 +79,7 @@ export default function RegisterPage() {
                 } catch (e) {
                     // Network-level error (axios) with no response
                     if (e?.isAxiosError && !e?.response) {
-                        showToast("Server connection issue. Please try again later.", "error");
+                        showToast(t('register.errors.connection'), "error");
                         setIsSubmitting(false);
                         return;
                     }
@@ -86,10 +90,8 @@ export default function RegisterPage() {
                     let friendly;
                     if (status === 400 && typeof detail === 'string' && /(exist|taken|already)/i.test(detail)) {
                         friendly = detail; // Backend already sent a useful duplication message
-                    } else if (typeof detail === 'string') {
-                        friendly = `Registration failed: ${detail}`;
                     } else {
-                        friendly = "Registration failed. Please try again.";
+                        friendly = t('register.errors.failed');
                     }
 
                     setError(friendly);
@@ -99,11 +101,11 @@ export default function RegisterPage() {
             } else {
                 setError("");
                 setTimeout(() => {
-                    setError("Enter email address in the correct format");
+                    setError(t('register.errors.invalidEmail'));
                 }, 3000);
             }
         } else {
-            setError("Please fill all fields");
+            setError(t('register.errors.fillAll'));
             setTimeout(() => {
                 setError("");
             }, 3000);
@@ -138,12 +140,13 @@ export default function RegisterPage() {
             <Card className={"register-card"}>
                 <div id={"header"}>
                     <Avatar />
+                    <LanguageSwitcher />
                     <Divider />
                 </div>
                 <div id={"body"}>
-                    <UserNameField label={"Username"} />
-                    <EmailField label={"Email"} />
-                    <PasswordField label={"Password"} />
+                    <UserNameField label={t('register.username')} />
+                    <EmailField label={t('register.email')} />
+                    <PasswordField label={t('register.password')} />
                     <Divider />
                     <label style={{ color: "red", fontSize: "20px" }}>{error}</label>
                 </div>
@@ -155,11 +158,11 @@ export default function RegisterPage() {
                         disabled={isSubmitting}
                         startIcon={isSubmitting ? <CircularProgress size={18} /> : null}
                     >
-                        {isSubmitting ? "Signing up…" : "Sign up"}
+                        {isSubmitting ? t('register.signingUp') : t('register.signUp')}
                     </Button>
 
                     <Typography className={"text"} variant={"h6"}>
-                        Already user?
+                        {t('register.alreadyUser')}
                         <Typography
                             className={"text"}
                             variant={"h6"}
@@ -167,12 +170,13 @@ export default function RegisterPage() {
                             component={Link}
                             to={"/login"}
                         >
-                            login
+                            {t('register.login')}
                         </Typography>
                     </Typography>
 
+                    {env.enablePasswordReset && (
                     <Typography className={"text"} variant={"h6"}>
-                        Forgot password?
+                        {t('login.forgotPassword')}
                         <Typography
                             className={"text"}
                             variant={"h6"}
@@ -180,11 +184,12 @@ export default function RegisterPage() {
                             component={Link}
                             to={"/forgot-password"}
                         >
-                            Reset now
+                            {t('login.resetNow')}
                         </Typography>
                     </Typography>
+                    )}
 
-                    <span style={{fontSize:"1.4em"}}>or</span>
+                    <span style={{fontSize:"1.4em"}}>{t('common.or')}</span>
 
                     <Button
                         className={"guest-button"}
@@ -193,7 +198,7 @@ export default function RegisterPage() {
                         }}
                         variant={"contained"}
                     >
-                        Continue as guest
+                        {t('common.continueAsGuest')}
                     </Button>
                     <AuthButtons />
                 </div>
@@ -238,7 +243,7 @@ export default function RegisterPage() {
                 try {
                     await associateDevice(visitorData.anon_id, visitorData.device_id);
                 } catch (_) {}
-                showToast("Welcome back, guest.");
+                showToast(t('login.welcomeGuest'));
                 navigate("/dashboard/user-home-page/0");
                 return;
             }
@@ -249,7 +254,7 @@ export default function RegisterPage() {
         // 2) No existing session -> create new visitor
         const result = await visitorLogin();
         if (result?.source === "local") {
-            showToast("Server is offline. Continuing as guest locally.");
+            showToast(t('login.serverOfflineGuest'));
         }
         if (result && result.data) {
             const visitorData = result.data;
@@ -267,7 +272,7 @@ export default function RegisterPage() {
             } catch (_) {}
             navigate("/dashboard/user-home-page/0");
         } else {
-            showToast("Unable to start guest session.");
+            showToast(t('login.guestUnable'));
         }
     }
 }

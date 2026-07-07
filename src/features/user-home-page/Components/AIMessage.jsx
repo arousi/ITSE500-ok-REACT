@@ -4,8 +4,10 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { SmartToy, ContentCopy, Download } from "@mui/icons-material";
 import { Tooltip, Button, IconButton, CircularProgress } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 export default function AIMessage({ text, typing = false, animate = false, image, filePath, fileType, waiting = false, statusText = '' }) {
+    const { t } = useTranslation();
     const [displayText, setDisplayText] = useState("");
     const [copied, setCopied] = useState(false);
 
@@ -105,14 +107,14 @@ export default function AIMessage({ text, typing = false, animate = false, image
             <div style={{ border: '1px solid #1f2937', borderRadius: 6, overflow: 'hidden', margin: '8px 0' }}>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: '#111827', color: '#e5e7eb', padding: '6px 10px', fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace', fontSize: 12 }}>
                     <span>{lang}</span>
-                    <Tooltip title="code copy"><span><IconButton size="small" onClick={copyBlock} sx={{ color: '#e5e7eb' }}><ContentCopy fontSize="inherit" /></IconButton></span></Tooltip>
+                    <Tooltip title={t('chat.copyCode')}><span><IconButton size="small" onClick={copyBlock} sx={{ color: '#e5e7eb' }}><ContentCopy fontSize="inherit" /></IconButton></span></Tooltip>
                 </div>
                 <pre style={{ margin: 0, background: '#0b1220', color: '#e5e7eb', padding: '10px 12px', overflowX: 'auto' }}>
                     <code className={className} {...props}>{codeText}</code>
                 </pre>
             </div>
         );
-    }, []);
+    }, [t]);
 
     const Table = (props) => (
         <div style={{ overflowX: 'auto' }}>
@@ -129,7 +131,7 @@ export default function AIMessage({ text, typing = false, animate = false, image
                 {waiting ? (
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '6px 0' }}>
                         <CircularProgress size={18} thickness={4} />
-                        <div style={{ fontSize: 13, color: '#6b7280' }}>{statusText || 'جاري المعالجة...'}</div>
+                        <div style={{ fontSize: 13, color: '#6b7280' }}>{statusText || t('chat.processing')}</div>
                     </div>
                 ) : typing ? (
                     <div className="typing"><span className="dot"></span><span className="dot"></span><span className="dot"></span></div>
@@ -139,24 +141,24 @@ export default function AIMessage({ text, typing = false, animate = false, image
                             {displayText}
                         </ReactMarkdown>
                         <div className="image-container" style={{ display: imgSrc ? 'block' : 'none', marginTop: 8  }}>
-                            <img src={imgSrc || ''} alt="AI Output" style={{objectFit:"contain" , height: '80%' ,  width: '100%', borderRadius: 8, border: '1px solid #e0e0e0' }} />
+                            <img src={imgSrc || ''} alt={t('chat.aiOutput')} style={{objectFit:"contain" , height: '80%' ,  width: '100%', borderRadius: 8, border: '1px solid #e0e0e0' }} />
                             {imgSrc && (
                                 <div style={{ marginTop: 6 }}>
-                                    <Tooltip title="تنزيل الصورة"><span>
+                                    <Tooltip title={t('chat.downloadImage')}><span>
                                         <Button sx={{textTransform:'capitalize'}} size="small" variant="outlined" startIcon={<Download/>} onClick={() => {
                                             try{ const href = imgSrc; const a = document.createElement('a'); a.href = href; a.download = `ai-image.${(fileType||'image/png').split('/')[1] || 'png'}`; document.body.appendChild(a); a.click(); document.body.removeChild(a);}catch(_){ }
-                                        }}>Download</Button>
+                                        }}>{t('chat.download')}</Button>
                                     </span></Tooltip>
                                 </div>
                             )}
                         </div>
                         <div style={{ marginTop: 8 }}>
-                            <Tooltip title={copied ? "تم النسخ!" : "نسخ المحتوى"}><span>
+                            <Tooltip title={copied ? t('chat.copiedTooltip') : t('chat.copyContent')}><span>
                                 <Button size="small" variant="outlined" startIcon={<ContentCopy />} onClick={handleCopy} disabled={!displayText} sx={{textTransform:'capitalize'}}>
-                                    copy
+                                    {t('chat.copy')}
                                 </Button>
                             </span></Tooltip>
-                            {copied && <span style={{ marginInlineStart: 8, fontSize: 12, color: '#4caf50' }}>تم النسخ</span>}
+                            {copied && <span style={{ marginInlineStart: 8, fontSize: 12, color: '#4caf50' }}>{t('chat.copied')}</span>}
                         </div>
                     </>
                 )}

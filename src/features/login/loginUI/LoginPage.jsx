@@ -3,6 +3,7 @@ import {Link , useNavigate} from "react-router-dom";
 import {useState, useContext , useReducer, useEffect} from "react";
 import { useTranslation } from "react-i18next";
 import LanguageSwitcher from "../../settings/components/LanguageSwitcher";
+import env from "../../../config/env";
 import AuthButtons from "../components/AuthButtons";
 import {associateUserDevice, checkServerConnect, visitorLogin} from "../logic/connectServer";
 import {useAuth} from "../../register/contexts/UserProvider";
@@ -93,8 +94,10 @@ export default function LoginPage() {
                 </Button>
                 <Typography className={"text"}>{t('login.newUser')} <Typography sx={{textDecoration: "none", fontSize: 20}}
                                                                       component={Link} to={"/register"}>{t('login.signUp')}</Typography></Typography>
+                {env.enablePasswordReset && (
                 <Typography className={"text"} sx={{fontSize: 20}}>{t('login.forgotPassword')} <Typography sx={{textDecoration: "none", fontSize: 20}}
                                                                                               component={Link} to={"/forgot-password"}>{t('login.resetNow')}</Typography></Typography>
+                )}
                 <span style={{fontSize:"1.4em"}}>{t('common.or')}</span>
                 <Button className={"guest-button"} sx={{textDecoration: "none"}} onClick={handleVisitorLogin} variant={"contained"}>{t('common.continueAsGuest')}</Button>
                 <div className="auth-buttons">

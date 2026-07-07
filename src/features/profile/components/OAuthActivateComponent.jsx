@@ -5,8 +5,10 @@ import CustomSwitch from "./CustomSwitch";
 import { startOAuth } from '../../auth/logic/oauthClient';
 import profileReducer from "../logic/profileReducer";
 import { useAuth } from "../../register/contexts/UserProvider";
+import { useTranslation } from 'react-i18next';
 
 export default function OAuthActivateComponent() {
+    const { t } = useTranslation();
     const { userProfile, setUserProfile } = useContext(UserProfileContext);
     const { auth, setAuth } = useAuth();
 
@@ -50,7 +52,7 @@ export default function OAuthActivateComponent() {
             <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
                 <div>
                     <Typography sx={{ textAlign: 'left', fontSize: '23px', fontWeight: 'bold' }}>OpenRouter</Typography>
-                    <p style={{ display: 'inline', textAlign: 'left', fontSize: "18px" }}>Enabled to show OpenRouter Sign-in on login screen</p> </div>
+                    <p style={{ display: 'inline', textAlign: 'left', fontSize: "18px" }}>{t('profile.oauth.enableOpenRouterSignIn')}</p> </div>
                 <CustomSwitch checked={!!userProfile.is_openrouter_user}
                     onChange={(e) => handleToggle('OPENROUTER', e.target.checked)}
                 />
@@ -58,7 +60,7 @@ export default function OAuthActivateComponent() {
             <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
                 <div>
                     <Typography sx={{ textAlign: 'left', fontSize: '23px', fontWeight: 'bold' }}>Google</Typography>
-                    <p style={{ display: 'inline', textAlign: 'left', fontSize: "18px" }}>Enabled to show Google Sign-in on login screen</p>             </div>
+                    <p style={{ display: 'inline', textAlign: 'left', fontSize: "18px" }}>{t('profile.oauth.enableGoogleSignIn')}</p>             </div>
                 <CustomSwitch checked={!!userProfile.is_google_user}
                     onChange={(e) => handleToggle('GOOGLE', e.target.checked)} type={'GOOGLE'} />
             </div>

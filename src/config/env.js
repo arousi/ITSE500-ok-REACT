@@ -76,6 +76,10 @@ const env = {
 
   // --- Feature flags ---
   enableManagedLlm: bool('REACT_APP_ENABLE_MANAGED_LLM', false),
+  // Off until the backend exposes a password-reset flow (no reset endpoint exists yet).
+  enablePasswordReset: bool('REACT_APP_ENABLE_PASSWORD_RESET', false),
+  // Off until the backend exposes a feedback endpoint.
+  enableFeedback: bool('REACT_APP_ENABLE_FEEDBACK', false),
 
   // --- BYO provider key fallbacks (optional; empty is fine — users bring their own) ---
   geminiKey: str('REACT_APP_GEMINI_SECRET_KEY', ''),

@@ -11,9 +11,11 @@ import {
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import "../settings-styles.css"
 import {useContext, useState} from "react";
+import { useTranslation } from "react-i18next";
 import {LLMsProviderTypeContext} from "../contexts/LLMsProviderTypeContext";
 
 export default function  PickLLMsProvider() {
+    const { t } = useTranslation();
     const {setProviderType} = useContext(LLMsProviderTypeContext);
     return (
         <Card className={"card"} id={"pick-LLMs-card"}>
@@ -24,7 +26,7 @@ export default function  PickLLMsProvider() {
                     <AccordionSummary expandIcon={<ExpandMore id={"expandIcon"} />}
                                       aria-controls="panel1-content"
                                       id="panel1-header">
-                        <Typography variant={"h3"}>Default provider:</Typography>
+                        <Typography variant={"h3"}>{t('settingsPage.pickProvider.defaultProvider')}</Typography>
                     </AccordionSummary>
                     <AccordionDetails >
                         <RadioGroup

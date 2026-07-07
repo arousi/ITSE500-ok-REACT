@@ -8,7 +8,9 @@ import {useContext, useEffect} from "react";
 import { readAllConversationsForOwner, refreshConversations } from "../../user-home-page/logic/connectIndexedDB";
 import { useAuth } from "../../register/contexts/UserProvider";
 import { getUserConversationsFromServer } from "../../user-home-page/logic/connectServer";
+import { useTranslation } from "react-i18next";
 export default function HistoryPage() {
+    const { t } = useTranslation();
     const {conversations, setConversations} = useContext(ConversationsContext);
     const { auth } = useAuth();
     const { showAlert } = useAlert();
@@ -87,13 +89,13 @@ export default function HistoryPage() {
         <Container  id={"container-history"} >
             <Button onClick={()=>{
                 handleDeleteAllConversations();
-            }} variant={"contained"} id={"deleteAll"} startIcon={<Delete/>}>Delete all</Button>
+            }} variant={"contained"} id={"deleteAll"} startIcon={<Delete/>}>{t('history.deleteAll')}</Button>
             {conversationList}
         </Container>
     )
 
     function handleDeleteAllConversations(){
-        showAlert(true , "warning" , "delete all conversations" ,"Do you really want to delete all conversations? This action cannot be undone." , "DELETE_ALL_CHATS")
-        
+        showAlert(true , "warning" , t('history.deleteAllConversationsTitle') , t('history.deleteAllConversationsConfirm') , "DELETE_ALL_CHATS")
+
     }
 }

@@ -1,14 +1,16 @@
 import {Card, Slider, Typography} from "@mui/material";
 import {useContext} from "react";
+import { useTranslation } from "react-i18next";
 import "../settings-styles.css"
 import {SettingsContext} from "../contexts/SettingsContext";
 import {ChatInferenceOptionContext} from "../contexts/ChatInferenceOptionContext";
 export default function TopKComponent() {
+     const { t } = useTranslation();
      const {settings , setSettings} = useContext(SettingsContext);
      const {chatInferenceOption} = useContext(ChatInferenceOptionContext);
     return(
         <Card className={"card"}>
-            <Typography sx={{fontSize:30}}>Top k</Typography>
+            <Typography sx={{fontSize:30}}>{t('settingsPage.chatInference.topK')}</Typography>
             <h2>{settings.top_k}</h2>
         <Slider step={1}
             disabled={!chatInferenceOption.topKOpen}
@@ -16,7 +18,7 @@ export default function TopKComponent() {
             min={0} max={200}
             onChange={handleTopKChange}
             valueLabelDisplay="auto"/>
-            <p style={{fontSize:"18px"}}>Minimum base probability for a token to be selected for output</p>
+            <p style={{fontSize:"18px"}}>{t('settingsPage.chatInference.topKHelp')}</p>
         </Card>
 
     )

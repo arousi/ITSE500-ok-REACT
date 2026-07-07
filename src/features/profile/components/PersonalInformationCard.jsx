@@ -10,7 +10,9 @@ import PhoneNumberField from "./PhoneNumberField";
 import "../profile-styles.css"
 import { UserProfileContext } from "../contexts/UserProfileProvider";
 import { useToast } from "../../dashboard-auth/custom-hooks/useToast";
+import { useTranslation } from "react-i18next";
 export default function PersonalInformationCard() {
+    const { t } = useTranslation();
     const { auth } = useAuth();
     const { openFields, setOpenFields } = useContext(OpenFieldContext);
     const initialState = {
@@ -33,7 +35,7 @@ export default function PersonalInformationCard() {
     }, [error, showToast]);
     return (
         <Card id={"personal-information-card"} sx={{ p: 3, borderRadius: 3 }}>
-            <Typography sx={{ fontSize: 28, fontWeight: 700, mb: 1 }}>Personal Information</Typography>
+            <Typography sx={{ fontSize: 28, fontWeight: 700, mb: 1 }}>{t('profile.personalInformation')}</Typography>
 
             <Stack spacing={1} direction="row" className={"username-server-uuid"}>
                     <div style={{ flex: '1 1 0', minWidth: 0 }} sx={{ flexWrap: 'nowrap', alignItems: 'stretch' }}>
@@ -60,7 +62,7 @@ export default function PersonalInformationCard() {
                         variant={'outlined'}
                         autoFocus={openFields.userNameField}
                         disabled={!openFields.userNameField}
-                        label={"Username"}
+                        label={t('profile.username')}
                     />
                 </div>
                 <div style={{ flex: '1 1 0', minWidth: 0 }}>
@@ -79,15 +81,15 @@ export default function PersonalInformationCard() {
                             readOnly: true
                         }}
                         variant={'outlined'}
-                        label={"Server UUID"}
+                        label={t('profile.serverUuid')}
                     />
                 </div>
             </Stack>
             <Divider sx={{ my: 2 }} />
             <div className={"email-phone"}>
-                <EmailField label={"Email"} icon={<AlternateEmail />} />
+                <EmailField label={t('profile.email')} icon={<AlternateEmail />} />
                         <Divider sx={{ my: 2 }} />
-                <PhoneNumberField label={"Phone Number"} icon={<Phone />} />
+                <PhoneNumberField label={t('profile.phoneNumber')} icon={<Phone />} />
                 {auth?.data?.refresh_token ? (
                     <>
                         <TextField className={"text-field"}
@@ -95,7 +97,7 @@ export default function PersonalInformationCard() {
                             onChange={(e) => setUserProfile({ ...userProfile, first_name: e.target.value })}
                             variant={'outlined'}
                             fullWidth
-                            label={"First name"}
+                            label={t('profile.firstName')}
                             InputProps={{
                                 endAdornment: (
                                     <InputAdornment position="end">
@@ -116,7 +118,7 @@ export default function PersonalInformationCard() {
                             onChange={(e) => setUserProfile({ ...userProfile, last_name: e.target.value })}
                             variant={'outlined'}
                             fullWidth
-                            label={"Last name"}
+                            label={t('profile.lastName')}
                             InputProps={{
                                 endAdornment: (
                                     <InputAdornment position="end">
@@ -136,7 +138,7 @@ export default function PersonalInformationCard() {
             </div>
             <div id={'personal-card-footer'}>
                 <Button onClick={handleUpdateProfileButton} disabled={auth?.data?.refresh_token ? false : true} variant={"contained"} sx={{ width: "90%" }}>
-                    Save All Changes
+                    {t('profile.saveAllChanges')}
                 </Button>
             </div>
         </Card>

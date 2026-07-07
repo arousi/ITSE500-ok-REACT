@@ -3,7 +3,9 @@ import SharedButton from "../../../components/SharedButton";
 import CustomSwitch from './CustomSwitch';
 import { useAlert } from "../../dashboard/custom-hooks/useAlert";
 import {useState } from 'react';
+import { useTranslation } from 'react-i18next';
 export default function DeleteOrArchiveAccountDialog({openDialog , setOpenDialog}) {
+    const { t } = useTranslation();
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
     const [toggleCloseAccount , setToggleCloseAccount] = useState(false); 
@@ -18,18 +20,18 @@ export default function DeleteOrArchiveAccountDialog({openDialog , setOpenDialog
                     width: fullScreen ? '100%' : '80%',
                 }
             }} open={openDialog} onClose={() => setOpenDialog(false)}>
-            <DialogTitle>Close your Account</DialogTitle>
+            <DialogTitle>{t('profile.deleteDialog.title')}</DialogTitle>
             <DialogContent >
-                <Typography sx={{fontSize:21 , textAlign:'start'}}>Choose an option below Archive disable access and schedules deletion ~30 days .</Typography>
-                <Typography sx={{fontSize:21 , textAlign:'start'}}>Deleting removes your account immediately.</Typography>
-                <Typography sx={{fontSize:21 , textAlign:'start'}}>There is no guarantee your account data will be removed from our past DB Backups.</Typography>
-                <TextField label="Reason / Feedback (optional)" variant="outlined" fullWidth multiline rows={4} />
+                <Typography sx={{fontSize:21 , textAlign:'start'}}>{t('profile.deleteDialog.chooseOption')}</Typography>
+                <Typography sx={{fontSize:21 , textAlign:'start'}}>{t('profile.deleteDialog.deletingRemovesImmediately')}</Typography>
+                <Typography sx={{fontSize:21 , textAlign:'start'}}>{t('profile.deleteDialog.noGuaranteeBackups')}</Typography>
+                <TextField label={t('profile.deleteDialog.reasonFeedback')} variant="outlined" fullWidth multiline rows={4} />
                 <div style={{display:'flex' , alignItems:'center', justifyContent:'space-between'}}>
                     <div>
                       <Typography sx={{fontSize: 30, marginTop: 2 ,  textAlign:'start'}}>
-                       Permanently Delete now
+                       {t('profile.deleteDialog.permanentlyDeleteNow')}
                       </Typography>
-                      <Typography sx={{fontSize: 23 ,  textAlign:'start'}}>Turn off to archive instead</Typography>
+                      <Typography sx={{fontSize: 23 ,  textAlign:'start'}}>{t('profile.deleteDialog.turnOffToArchive')}</Typography>
                      </div>
                     <CustomSwitch onChange={(event)=>{
                       setToggleCloseAccount(event.target.checked);
@@ -37,22 +39,22 @@ export default function DeleteOrArchiveAccountDialog({openDialog , setOpenDialog
                 </div>
             </DialogContent>
                         <DialogActions>
-                                <Button onClick={() => setOpenDialog(false)}>Cancel</Button>
+                                <Button onClick={() => setOpenDialog(false)}>{t('common.cancel')}</Button>
                                 <SharedButton
                                     onClick={handleCloseAccount}
                                     color={toggleCloseAccount ? 'error' : 'primary'}
                                     sx={{ width: 200, height: 50 }}
                                 >
-                                    {toggleCloseAccount ? 'Delete' : 'Archive'}
+                                    {toggleCloseAccount ? t('profile.deleteDialog.delete') : t('profile.deleteDialog.archive')}
                                 </SharedButton>
                         </DialogActions>
         </Dialog>
     );
     function handleCloseAccount() {
        if(toggleCloseAccount){
-           showAlert(true , 'warning', 'account deletion', "Your account will be permanently deleted.", 'DELETE');
+           showAlert(true , 'warning', t('profile.deleteDialog.accountDeletion'), t('profile.deleteDialog.willBeDeleted'), 'DELETE');
        }else{
-           showAlert(true , 'warning', 'account archival', "Your account will be archived.", 'ARCHIVE');
+           showAlert(true , 'warning', t('profile.deleteDialog.accountArchival'), t('profile.deleteDialog.willBeArchived'), 'ARCHIVE');
        }
     }
 

@@ -1,13 +1,15 @@
 import {Card , Slider , Typography} from "@mui/material";
 import {useContext} from 'react'
+import { useTranslation } from "react-i18next";
 import {SettingsContext} from "../contexts/SettingsContext";
 import {ChatInferenceOptionContext} from "../contexts/ChatInferenceOptionContext";
 export default function MinPComponent(){
+    const { t } = useTranslation();
     const {settings , setSettings} = useContext(SettingsContext);
     const {chatInferenceOption} = useContext(ChatInferenceOptionContext);
     return(
         <Card className={"card"}>
-            <Typography sx={{fontSize:30}}>Min p</Typography>
+            <Typography sx={{fontSize:30}}>{t('settingsPage.chatInference.minP')}</Typography>
             <h2>{settings.min_p}</h2>
             <Slider step={0.1}
                     disabled={!chatInferenceOption.minPOpen}
@@ -15,7 +17,7 @@ export default function MinPComponent(){
                     min={0} max={1}
                     onChange={handleMinPChange}
                     valueLabelDisplay="auto"/>
-            <p style={{fontSize:"18px"}}>Minimum base probability for a token to be selected for output</p>
+            <p style={{fontSize:"18px"}}>{t('settingsPage.chatInference.minPHelp')}</p>
 
         </Card>
     );

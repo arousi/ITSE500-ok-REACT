@@ -5,15 +5,18 @@ import { Accordion , AccordionSummary  ,AccordionDetails} from '../../dashboard/
 import SearchIcon from '@mui/icons-material/Search';
 import '../profile-styles.css';
 import { Check } from '@mui/icons-material';
+import { useTranslation } from 'react-i18next';
 export default function CategoryAccordion({ category, models = [] , onModelToggle, selectedModels, onSelectAll }) {
+    const { t } = useTranslation();
     const [query, setQuery] = React.useState('');
     const total = (models || []).length;
     const selectedCount = (models || []).reduce((acc, m) => acc + ((selectedModels && selectedModels.has && selectedModels.has(m.name)) ? 1 : 0), 0);
-    let stateLabel = 'None';
-    if(total === 0) stateLabel = 'None';
-    else if(selectedCount === 0) stateLabel = 'None';
-    else if(selectedCount === total) stateLabel = 'All';
-    else stateLabel = 'Part';
+    let stateLabel = t('profile.selectionNone');
+    let stateKey = 'None';
+    if(total === 0) { stateLabel = t('profile.selectionNone'); stateKey = 'None'; }
+    else if(selectedCount === 0) { stateLabel = t('profile.selectionNone'); stateKey = 'None'; }
+    else if(selectedCount === total) { stateLabel = t('profile.selectionAll'); stateKey = 'All'; }
+    else { stateLabel = t('profile.selectionPart'); stateKey = 'Part'; }
 
     const handleSelectAllClick = () => {
         const willSelect = !(selectedCount === total);
@@ -28,7 +31,7 @@ export default function CategoryAccordion({ category, models = [] , onModelToggl
             >
                 <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%'}}>
                     <Typography sx={{fontWeight:600}}>{category} <span style={{marginLeft:8, color:'#666'}}>{models.length}</span></Typography>
-                    <Button size="small" className={"total-selected-btn"} sx={{backgroundColor:stateLabel === "All"?"rgba(115, 197, 115, 1);":"rgba(133, 94, 243, 1)"}} onClick={(e)=>{ e.stopPropagation(); handleSelectAllClick(); }}>{stateLabel}</Button>
+                    <Button size="small" className={"total-selected-btn"} sx={{backgroundColor:stateKey === "All"?"rgba(115, 197, 115, 1);":"rgba(133, 94, 243, 1)"}} onClick={(e)=>{ e.stopPropagation(); handleSelectAllClick(); }}>{stateLabel}</Button>
                 </Box>
             </AccordionSummary>
             <AccordionDetails>
@@ -36,7 +39,7 @@ export default function CategoryAccordion({ category, models = [] , onModelToggl
                     <TextField
                         
                         size="small"
-                        placeholder={`Search in ${category}`}
+                        placeholder={t('profile.searchInCategory', { category })}
                         value={query}
                         onChange={(e)=> setQuery(e.target.value)}
                         InputProps={{ startAdornment: (<InputAdornment position="start"><SearchIcon/></InputAdornment>) }}

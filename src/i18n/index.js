@@ -5,6 +5,8 @@ import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import en from './locales/en.json';
 import ar from './locales/ar.json';
+import enApp from './locales/en/app.json';
+import arApp from './locales/ar/app.json';
 
 export const SUPPORTED_LANGS = ['en', 'ar'];
 export const RTL_LANGS = ['ar'];
@@ -28,8 +30,8 @@ i18n
   .use(initReactI18next)
   .init({
     resources: {
-      en: { translation: en },
-      ar: { translation: ar },
+      en: { translation: { ...en, nav: { ...en.nav, ...enApp.nav }, dashboard: enApp.dashboard, chat: enApp.chat } },
+      ar: { translation: { ...ar, nav: { ...ar.nav, ...arApp.nav }, dashboard: arApp.dashboard, chat: arApp.chat } },
     },
     fallbackLng: 'en',
     supportedLngs: SUPPORTED_LANGS,

@@ -5,6 +5,7 @@ import {Add } from '@mui/icons-material';
 import {useContext, useState} from 'react';
 import {URLFileContext} from "../contexts/URLFileProvider";
 import {FileContext} from "../contexts/FileProvider";
+import { useTranslation } from "react-i18next";
 const VisuallyHiddenInput = styled('input')({
     clip: 'rect(0 0 0 0)',
     clipPath: 'inset(50%)',
@@ -19,6 +20,7 @@ const VisuallyHiddenInput = styled('input')({
 
 
 export default function UploadFileButton(){
+    const { t } = useTranslation();
     const {setFilePath} = useContext(URLFileContext);
 
     const {setFile} = useContext(FileContext);
@@ -72,7 +74,7 @@ export default function UploadFileButton(){
                 sx={{width:40 , height:40}}
                 disabled={isUploading}
                 aria-busy={isUploading}
-                aria-label={isUploading ? 'Uploading...' : 'Upload file'}
+                aria-label={isUploading ? t('chat.uploading') : t('chat.uploadFile')}
             >
                 <Add sx={{width:40 , height:40}}/>
                 <VisuallyHiddenInput

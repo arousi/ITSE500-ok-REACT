@@ -7,8 +7,10 @@ import {ModelSelectedContext} from "../contexts/ModelSelectedContext";
 import { CategoryContext } from '../../profile/contexts/CategoryContext';
 
 import { loadSelectedModels, saveSelectedModels } from '../../profile/logic/idbAppStorage';
+import { useTranslation } from "react-i18next";
 
 export default function ModelsAutoComplete() {
+    const { t } = useTranslation();
     const[models , setModels] = useState([]);
     const [value, setValue] = useState(null);
     const [inputValue, setInputValue] = useState("");
@@ -165,7 +167,7 @@ export default function ModelsAutoComplete() {
              getOptionLabel={(option) => option?.name || ''}
              groupBy={(option) => option?.provider || ''}
              renderInput={(params) => (
-                 <TextField {...params} label="Select model" />
+                 <TextField {...params} label={t('chat.selectModel')} />
              )}
          />
     )

@@ -10,7 +10,9 @@ import Appearance from "../components/Appearance";
 import {ChatInferenceOptionProvider} from "../contexts/ChatInferenceOptionContext";
 import { useContext } from "react";
 import { SettingsContext } from "../contexts/SettingsContext";
+import { useTranslation } from "react-i18next";
 export default function SettingsPage() {
+    const { t } = useTranslation();
     const { settings, setSettings } = useContext(SettingsContext);
     const handleSave = () => {
         // Trigger persistence by updating settings (no-op merge)
@@ -37,7 +39,7 @@ export default function SettingsPage() {
 
           </ChatInferenceOptionProvider>
       <Stack direction="row" justifyContent="center" sx={{ mb: 1  , marginTop:1}}>
-          <Button variant="contained"  sx={{ fontSize:30 , textTransform:"none" , fontWeight:"bold" , borderRadius:2 , width:"450px" , height:"56px"}} onClick={handleSave}>Save</Button>
+          <Button variant="contained"  sx={{ fontSize:30 , textTransform:"none" , fontWeight:"bold" , borderRadius:2 , width:"450px" , height:"56px"}} onClick={handleSave}>{t('common.save')}</Button>
            </Stack>
         </div>
     )

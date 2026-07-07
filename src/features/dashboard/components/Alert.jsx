@@ -7,7 +7,9 @@ import {useToast} from "../../dashboard-auth/custom-hooks/useToast";
 import historyReducer from "../../history/logic/historyReducer";
 import {ConversationsContext} from "../../user-home-page/contexts/ConvesationsContext";
 import logger from "../../../core/logger";
+import { useTranslation } from "react-i18next";
 export default function Alert(){
+    const { t } = useTranslation();
     const {auth , setAuth} = useAuth();
     const {alert , hideAlert} = useAlert();
     const { showToast} = useToast();
@@ -32,14 +34,14 @@ export default function Alert(){
         return(
             <>
             {
-                alert.type === "success" ? <Button onClick={() => hideAlert()}>Ok</Button>
+                alert.type === "success" ? <Button onClick={() => hideAlert()}>{t('dashboard.ok')}</Button>
                     : alert.type === "warning" ?
                      <>
-                         <Button sx={{fontSize:"1.2rem"}} onClick={() => handleOKButton()}>OK</Button>
-                         <Button sx={{fontSize:"1.2rem"}} onClick={() => hideAlert()}>Cancel</Button>
+                         <Button sx={{fontSize:"1.2rem"}} onClick={() => handleOKButton()}>{t('dashboard.ok')}</Button>
+                         <Button sx={{fontSize:"1.2rem"}} onClick={() => hideAlert()}>{t('common.cancel')}</Button>
                     </>
                     :
-                    <Button>Cancel</Button>
+                    <Button>{t('common.cancel')}</Button>
             }
 
         </>)
@@ -62,20 +64,20 @@ export default function Alert(){
         switch(alert.action){
             case"ARCHIVE":{
                 dispatch({type:"ARCHIVE_PROFILE",payload:{auth , setAuth}})
-                showToast('archived profile successfully', 'success');
+                showToast(t('dashboard.archivedProfileSuccess'), 'success');
                 break;
             }case "DELETE":{
                 dispatch({type:"DELETE_PROFILE",payload:{auth , setAuth}})
-                showToast('deleted profile successfully', 'success');
+                showToast(t('dashboard.deletedProfileSuccess'), 'success');
                 break;
             }case"LOGOUT":{
                 dispatch({type:"LOGOUT" , payload: {auth , setAuth}}) ;
-                showToast('logged out successfully', 'success');
+                showToast(t('dashboard.loggedOutSuccess'), 'success');
                 break;
             }case"DELETE_ALL_CHATS":{
                 // Clear IndexedDB (handled in reducer) and then reflect immediately in UI
                 historyDispatch({type:"DELETE_ALL_CHATS",payload:{ setConversations }})
-                showToast('deleted all chats successfully', 'success');
+                showToast(t('dashboard.deletedAllChatsSuccess'), 'success');
                 window.location.reload();
                 hideAlert();
                 break;

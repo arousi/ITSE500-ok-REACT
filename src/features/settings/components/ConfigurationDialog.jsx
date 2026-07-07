@@ -18,6 +18,7 @@ import {
     Radio 
 } from '@mui/material';
 import CircleIcon from '@mui/icons-material/Circle';
+import { useTranslation } from 'react-i18next';
 import {OptionStorageContext} from '../../profile/contexts/OptionStorageContext';
 import {Accordion , AccordionDetails , AccordionSummary} from '../../dashboard/components/CustomAccordions';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -26,6 +27,7 @@ import { SettingsContext } from '../contexts/SettingsContext';
 import { ChatInferenceOptionContext } from '../contexts/ChatInferenceOptionContext';
 import { SecretKeysContext } from '../../profile/contexts/SecretKeysContext';
 export function ConfigurationDialog() {
+    const { t } = useTranslation();
     const { displayConfiguration, setDisplayConfiguration } = useContext(DisplayConfigurationContext);
     // global settings (values) and toggles (enabled flags)
     const { settings, setSettings } = useContext(SettingsContext);
@@ -97,13 +99,13 @@ export function ConfigurationDialog() {
                     width: fullScreen ? '100%' : '80%',
                 }
             }} open={!!displayConfiguration} onClose={handleClose} fullWidth maxWidth="md" >
-            <DialogTitle className="config-dialog-title">Configuration</DialogTitle>
+            <DialogTitle className="config-dialog-title">{t('settingsPage.configDialog.title')}</DialogTitle>
             <DialogContent className="config-dialog-content" >
                 <Stack  sx={{maxHeight:500}} spacing={2}>
                     <Accordion expanded={expanded === 'providers'} onChange={handleAccordionChange('providers')}>
                         <AccordionSummary  expandIcon={<ExpandMoreIcon />}>
-                            <Typography>Providers</Typography>
-                        
+                            <Typography>{t('settingsPage.configDialog.providers')}</Typography>
+
                         </AccordionSummary>
                         
                         <AccordionDetails>
@@ -130,25 +132,25 @@ export function ConfigurationDialog() {
 
                     <Accordion expanded={expanded === 'settings'} onChange={handleAccordionChange('settings')}>
                         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                            <Typography>Settings</Typography>
+                            <Typography>{t('settingsPage.configDialog.settings')}</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
                             <Stack spacing={2}>
                                 <Box sx={{display:'flex', alignItems:'center', gap:2}}>
-                                    <FormControlLabel control={<Switch checked={config.settings.systemPromptEnabled} onChange={() => setConfig(prev => ({...prev, settings: {...prev.settings, systemPromptEnabled: !prev.settings.systemPromptEnabled}}))} />} label="System Prompt" />
+                                    <FormControlLabel control={<Switch checked={config.settings.systemPromptEnabled} onChange={() => setConfig(prev => ({...prev, settings: {...prev.settings, systemPromptEnabled: !prev.settings.systemPromptEnabled}}))} />} label={t('settingsPage.configDialog.systemPrompt')} />
                                 </Box>
-                                <TextField disabled={!config.settings.systemPromptEnabled} multiline minRows={3} placeholder="Enter a persistent system instruction (e.g., You are a helpful assistant...)" value={config.settings.systemPrompt} onChange={(e)=>setConfig(prev=>({...prev, settings:{...prev.settings, systemPrompt: e.target.value}}))} />
+                                <TextField disabled={!config.settings.systemPromptEnabled} multiline minRows={3} placeholder={t('settingsPage.configDialog.systemPromptPlaceholder')} value={config.settings.systemPrompt} onChange={(e)=>setConfig(prev=>({...prev, settings:{...prev.settings, systemPrompt: e.target.value}}))} />
 
                                 <Box sx={{display:'flex', gap:2, alignItems:'center'}}>
                                     <Switch checked={!!chatInferenceOption.temperatureOpen} onChange={() => setChatInferenceOption(prev => ({...prev, temperatureOpen: !prev.temperatureOpen}))} />
-                                    <Typography>Temperature</Typography>
+                                    <Typography>{t('settingsPage.chatInference.temperature')}</Typography>
                                     <Slider disabled={!chatInferenceOption.temperatureOpen} value={Number(settings.temperature) || 0} onChange={(e, v)=> setSettings(prev => ({...prev, temperature: Array.isArray(v)? v[0] : v}))} min={0} max={1} step={0.01} sx={{mx:2, flex:1}} />
                                     <Typography>{Number(settings.temperature).toFixed(2)}</Typography>
                                 </Box>
 
                                 <Box sx={{display:'flex', gap:2, alignItems:'center'}}>
                                     <Switch checked={config.settings.limitResponseLength} onChange={()=>setConfig(prev=>({...prev, settings:{...prev.settings, limitResponseLength: !prev.settings.limitResponseLength}}))} />
-                                    <Typography>Limit Response Length</Typography>
+                                    <Typography>{t('settingsPage.configDialog.limitResponseLength')}</Typography>
                                     <TextField
                                         type="number"
                                         size="small"
@@ -157,7 +159,7 @@ export function ConfigurationDialog() {
                                         onChange={(e)=> setConfig(prev=> ({...prev, settings:{...prev.settings, maxTokens: Number(e.target.value || 0)}}))}
                                         sx={{ width: 140, ml: 2 }}
                                         inputProps={{ min: 1 }}
-                                        label="Max tokens"
+                                        label={t('settingsPage.configDialog.maxTokens')}
                                     />
                                 </Box>
                             </Stack>
@@ -166,34 +168,34 @@ export function ConfigurationDialog() {
 
                     <Accordion expanded={expanded === 'sampling'} onChange={handleAccordionChange('sampling')}>
                         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                            <Typography>Sampling</Typography>
+                            <Typography>{t('settingsPage.configDialog.sampling')}</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
                             <Stack spacing={2}>
                          <Box sx={{display:'flex', alignItems:'center', gap:2}}>
                              <Switch checked={!!chatInferenceOption.topKOpen} onChange={()=>setChatInferenceOption(prev=>({...prev, topKOpen: !prev.topKOpen}))} />
-                                    <Typography>Top K</Typography>
+                                    <Typography>{t('settingsPage.chatInference.topK')}</Typography>
                                     <Slider disabled={!chatInferenceOption.topKOpen} value={Number(settings.top_k) || 0} onChange={(e,v)=>setSettings(prev=>({...prev, top_k: Array.isArray(v)? v[0] : v}))} min={0} max={200} sx={{mx:2, flex:1}} />
                                     <Typography>{Number(settings.top_k)}</Typography>
                                 </Box>
 
                                 <Box sx={{display:'flex', alignItems:'center', gap:2}}>
                                     <Switch checked={!!chatInferenceOption.repeatPenaltyOpen} onChange={()=>setChatInferenceOption(prev=>({...prev, repeatPenaltyOpen: !prev.repeatPenaltyOpen}))} />
-                                    <Typography>Repeat Penalty</Typography>
+                                    <Typography>{t('settingsPage.chatInference.repeatPenalty')}</Typography>
                                     <Slider disabled={!chatInferenceOption.repeatPenaltyOpen} value={Number(settings.repeat_penalty) || 0} onChange={(e,v)=>setSettings(prev=>({...prev, repeat_penalty: Array.isArray(v)? v[0] : v}))} min={0.1} max={2} step={0.01} sx={{mx:2, flex:1}} />
                                     <Typography>{Number(settings.repeat_penalty).toFixed(2)}</Typography>
                                 </Box>
 
                                 <Box sx={{display:'flex', alignItems:'center', gap:2}}>
                                     <Switch checked={!!chatInferenceOption.minPOpen} onChange={()=>setChatInferenceOption(prev=>({...prev, minPOpen: !prev.minPOpen}))} />
-                                    <Typography>Min P</Typography>
+                                    <Typography>{t('settingsPage.chatInference.minP')}</Typography>
                                     <Slider disabled={!chatInferenceOption.minPOpen} value={Number(settings.min_p) || 0} onChange={(e,v)=>setSettings(prev=>({...prev, min_p: Array.isArray(v)? v[0] : v}))} min={0} max={1} step={0.01} sx={{mx:2, flex:1}} />
                                     <Typography>{Number(settings.min_p).toFixed(2)}</Typography>
                                 </Box>
 
                                 <Box sx={{display:'flex', alignItems:'center', gap:2}}>
                                     <Switch checked={!!chatInferenceOption.topPOpen} onChange={()=>setChatInferenceOption(prev=>({...prev , topPOpen: !prev.topPOpen}))} />
-                                    <Typography>Top P</Typography>
+                                    <Typography>{t('settingsPage.chatInference.topP')}</Typography>
                                     <Slider disabled={!chatInferenceOption.topPOpen} value={Number(settings.top_p) || 0} onChange={(e,v)=>setSettings(prev=>({...prev, top_p: Array.isArray(v)? v[0] : v}))} min={0} max={1} step={0.01} sx={{mx:2, flex:1}} />
                                     <Typography>{Number(settings.top_p).toFixed(2)}</Typography>
                                 </Box>
@@ -203,12 +205,12 @@ export function ConfigurationDialog() {
 
                     <Accordion expanded={expanded === 'structured'} onChange={handleAccordionChange('structured')}>
                         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                            <Typography>Structured Output</Typography>
+                            <Typography>{t('settingsPage.configDialog.structuredOutput')}</Typography>
                         </AccordionSummary>
                          <AccordionDetails>
                             <Stack spacing={2}>
                                 <Box sx={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
-                                    <Typography>Structured Output (JSON Schema)</Typography>
+                                    <Typography>{t('settingsPage.configDialog.structuredOutputJsonSchema')}</Typography>
                                     <Switch checked={!!settings.structured_output_enabled}
                                             onChange={()=>setSettings(prev => ({...prev, structured_output_enabled: !prev.structured_output_enabled}))} />
                                 </Box>
@@ -221,14 +223,14 @@ export function ConfigurationDialog() {
                     </Accordion>
                      <Accordion expanded={expanded === 'option_storage'} onChange={handleAccordionChange('option_storage')}>
                            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                           <Typography>Options storage </Typography>
-                           </AccordionSummary>  
+                           <Typography>{t('settingsPage.configDialog.optionsStorage')}</Typography>
+                           </AccordionSummary>
                            <AccordionDetails>
                              <Box>
-                                <Typography>Select storage option:</Typography>
+                                <Typography>{t('settingsPage.configDialog.selectStorageOption')}</Typography>
                                 <RadioGroup sx={{display: 'flex', flexDirection: 'row'}} value={storageOption} onChange={(e)=>setStorageOption(e.target.value)}>
-                                    <FormControlLabel value="local" control={<Radio />} label="Local Storage" />
-                                    <FormControlLabel value="mixed" control={<Radio />} label="Mixed Only" />
+                                    <FormControlLabel value="local" control={<Radio />} label={t('settingsPage.configDialog.localStorage')} />
+                                    <FormControlLabel value="mixed" control={<Radio />} label={t('settingsPage.configDialog.mixedOnly')} />
                                 </RadioGroup>
                              </Box>
                            </AccordionDetails>
@@ -236,8 +238,8 @@ export function ConfigurationDialog() {
                 </Stack>
             </DialogContent>
             <DialogActions className="config-dialog-actions">
-                <Button className="config-close-btn" onClick={handleClose}>Close</Button>
-                <Button className="config-save-btn" onClick={handleSave} variant="contained" color="primary">Save</Button>
+                <Button className="config-close-btn" onClick={handleClose}>{t('settingsPage.configDialog.close')}</Button>
+                <Button className="config-save-btn" onClick={handleSave} variant="contained" color="primary">{t('common.save')}</Button>
             </DialogActions>
         </Dialog>
     );

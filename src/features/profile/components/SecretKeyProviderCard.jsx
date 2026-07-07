@@ -19,9 +19,11 @@ import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
 import axios from 'axios';
 import '../profile-styles.css'
+import { useTranslation } from 'react-i18next';
 
 
 export default function SecretKeyProviderCard({ label , type }) {
+    const { t } = useTranslation();
     const { keys, setKeys } = useContext(SecretKeysContext);
     const { setActivateLLMs, activateLLMs } = useContext(ActivateLLMsProviderContext);
     const { setCategories, selectedModels: persistedSelected } = useContext(CategoryContext);
@@ -54,7 +56,7 @@ export default function SecretKeyProviderCard({ label , type }) {
         lmstudio: 'LM Studio',
         huggingface: 'HuggingFace'
     }[providerKey] || (label || '');
-    const statusText = (!provider.key ? 'Not set' : (isConnected ? 'Connected' : 'Disconnected'));
+    const statusText = (!provider.key ? t('profile.statusNotSet') : (isConnected ? t('profile.statusConnected') : t('profile.statusDisconnected')));
     const statusColor = (!provider.key ? '#9e9e9e' : (isConnected ? '#4caf50' : '#f44336'));
     
 
@@ -317,7 +319,7 @@ export default function SecretKeyProviderCard({ label , type }) {
                 <TextField
                     className={"secret-key-input"}
                     type={providerKey === 'lmstudio' ? 'text' : 'password'}
-                    label={providerKey === 'lmstudio' ? 'Base URL' : 'Secret Key'}
+                    label={providerKey === 'lmstudio' ? t('profile.baseUrl') : t('profile.secretKey')}
                     size="small"
                     disabled={!enabled}
                     value={provider.key || ''}
@@ -333,7 +335,7 @@ export default function SecretKeyProviderCard({ label , type }) {
             <div className="models-accordion-wrapper">
                 <div className="models-header-row">
                     <div className="models-header-left">
-                        <Typography className="models-title">Models</Typography>
+                        <Typography className="models-title">{t('profile.models')}</Typography>
                         <Typography className="models-count" title="selected / total">
                             {(() => {
                                 // Compute on the fly: selected across all categories for this provider vs total fetched here
@@ -347,14 +349,14 @@ export default function SecretKeyProviderCard({ label , type }) {
                         </Typography>
                     </div>
                     <div className="models-header-right">
-                        <Button size="small" className={"fetch-models-button"} variant="contained" onClick={handleFetchModels} sx={{backgroundColor: provider.key ? '#4caf50' : '#ccc'}} disabled={!provider.key}>Fetch Models</Button>
+                        <Button size="small" className={"fetch-models-button"} variant="contained" onClick={handleFetchModels} sx={{backgroundColor: provider.key ? '#4caf50' : '#ccc'}} disabled={!provider.key}>{t('profile.fetchModels')}</Button>
                     </div>
                 </div>
                 <div>
                     <div className="models-filter-row">
                         <TextField
                             size="small"
-                            placeholder="Filter models"
+                            placeholder={t('profile.filterModels')}
                             value={query}
                             onChange={(e) => setQuery(e.target.value)}
                             InputProps={{ startAdornment: (<InputAdornment position="start"><SearchIcon/></InputAdornment>) }}
@@ -397,7 +399,7 @@ export default function SecretKeyProviderCard({ label , type }) {
                     </div>
                     {models.length === 0 ? (
                         <div style={{padding:12}}>
-                            <Typography variant="body2" color="textSecondary">No models available</Typography>
+                            <Typography variant="body2" color="textSecondary">{t('profile.noModelsAvailable')}</Typography>
                         </div>
                     ) : (
                         <div>

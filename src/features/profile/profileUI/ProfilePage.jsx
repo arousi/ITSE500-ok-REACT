@@ -18,7 +18,9 @@ import "../profile-styles.css";
 import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 import OAuthActivateComponent from '../components/OAuthActivateComponent';
 import DeleteOrArchiveAccountDialog from '../components/DeleteOrArchiveAccountDialog';
+import { useTranslation } from 'react-i18next';
 export default function ProfilePage() {
+    const { t } = useTranslation();
     // const {auth} = useAuth();
     // const {showAlert} = useAlert();
     // const {showToast} = useToast();
@@ -84,11 +86,11 @@ export default function ProfilePage() {
                                  borderRadius:"40px",
                                  textTransform:"capitalize"
                                 }}
-                             ><PersonAddAltIcon/>Create new account</Button>
+                             ><PersonAddAltIcon/>{t('profile.createNewAccount')}</Button>
                     )}
                     <RegisterDialog open={openRegisterDialog} onClose={() => setOpenRegisterDialog(false)} />
                     <div className={"provider-container"}>
-                        <Typography sx={{fontSize:35}}>Providers</Typography>
+                        <Typography sx={{fontSize:35}}>{t('profile.providers')}</Typography>
                         <SecretKeyProviderCard label={"Gemini"}  type={'GOOGLE'} />
                         <SecretKeyProviderCard label={"OpenRouter"} type={'OPENROUTER'}/>
                         <SecretKeyProviderCard label={"OpenAI"} type={'OPENAI'}/>
@@ -96,17 +98,17 @@ export default function ProfilePage() {
                         <SecretKeyProviderCard label={"LM Studio"} type={'LM_STUDIO'}/>
                     </div>
                      <div className={"provider-container"}>
-                    <Typography sx={{fontSize:35 , textAlign:"left" , marginLeft:"10px"}}>Authentication</Typography>
+                    <Typography sx={{fontSize:35 , textAlign:"left" , marginLeft:"10px"}}>{t('profile.authentication')}</Typography>
                      <div className={"oauth-container"}>
                      <OAuthActivateComponent/>
                      </div>
-                    
-                    
+
+
                     </div>
                     {auth?.data?.user_id != null && ( <div>
                         <Button onClick={() => setOpenDialog(true)} sx={{backgroundColor: 'red',
                                  width:"300px" ,
-                                 height:'80px', 
+                                 height:'80px',
                                  marginTop:"0",
                                  position:"relative",
                                  bottom:"10px",
@@ -114,7 +116,7 @@ export default function ProfilePage() {
                                  color:'white',
                                  borderRadius:"40px",
                                  textTransform:"capitalize"
-                                }}>Archive or Delete account</Button>
+                                }}>{t('profile.archiveOrDeleteAccount')}</Button>
                      </div>)}
                     <DeleteOrArchiveAccountDialog openDialog={openDialog} setOpenDialog={setOpenDialog} />
                 </div>

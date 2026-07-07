@@ -15,8 +15,10 @@ import { ConversationContext } from "../contexts/ConversationContext";
 import { ConversationsContext } from "../../user-home-page/contexts/ConvesationsContext";
 import { readAllConversationsForOwner, refreshConversations } from "../../user-home-page/logic/connectIndexedDB";
 import { getUserConversationsFromServer } from "../../user-home-page/logic/connectServer";
+import { useTranslation } from "react-i18next";
 
 export default function MenuListDrawer() {
+    const { t } = useTranslation();
     let { setOpen } = useContext(OpenDrawerContext);
     const { conversationsList } = useContext(ConversationContext)
     const { setUserProfile } = useContext(UserProfileContext);
@@ -104,7 +106,7 @@ export default function MenuListDrawer() {
                     <div className={"navigate-buttons"}>
                         <ListItem>
                             <ListItemButton sx={{ height: "50px" }} component={Link} to={"history"} disabled={conversationsList.length === 0}  >
-                                <Typography sx={{ margin: "auto", fontSize: "22px" }} >View all</Typography>
+                                <Typography sx={{ margin: "auto", fontSize: "22px" }} >{t('dashboard.viewAll')}</Typography>
                             </ListItemButton>
                         </ListItem>
 
@@ -114,24 +116,24 @@ export default function MenuListDrawer() {
                                 handleProfileButton();
 
                             }} className={"list-buttons"}>
-                                <Typography sx={{ fontSize: "1em", display: "flex", alignItems: "center", justifyContent: "center", gap: "10px" }} className={"name-button"}> <Person sx={{ width: 35, height: 35 }} />Profile</Typography>
+                                <Typography sx={{ fontSize: "1em", display: "flex", alignItems: "center", justifyContent: "center", gap: "10px" }} className={"name-button"}> <Person sx={{ width: 35, height: 35 }} />{t('nav.profile')}</Typography>
                             </ListItemButton>
                         </ListItem>
                         <ListItem className={"menu-item"}>
                             <ListItemButton component={Link} to={"settings"} className={"list-buttons"}>
-                                <Typography sx={{ fontSize: "1em", display: "flex", alignItems: "center", justifyContent: "center", gap: "10px" }} className={"name-button"}><Settings sx={{ width: 35, height: 35 }} />Settings</Typography>
+                                <Typography sx={{ fontSize: "1em", display: "flex", alignItems: "center", justifyContent: "center", gap: "10px" }} className={"name-button"}><Settings sx={{ width: 35, height: 35 }} />{t('nav.settings')}</Typography>
                             </ListItemButton>
                         </ListItem>
                         <ListItem className={"menu-item"}>
                             <ListItemButton onClick={handleSendFeedback} className={"list-buttons"}>
-                                <Typography sx={{ fontSize: "1em", display: "flex", alignItems: "center", justifyContent: "center", gap: "10px" }} className={"name-button"}> <Email sx={{ width: 35, height: 35 }} />Send Feedback</Typography>
+                                <Typography sx={{ fontSize: "1em", display: "flex", alignItems: "center", justifyContent: "center", gap: "10px" }} className={"name-button"}> <Email sx={{ width: 35, height: 35 }} />{t('nav.feedback')}</Typography>
                             </ListItemButton>
                         </ListItem>
                         <ListItem className={"menu-item"}>
                             <ListItemButton onClick={() => {
                                 handleLogout()
                             }} className={"list-buttons"} id={"logout-button"}>
-                                <Logout sx={{ width: 35, height: 35 }} /><Typography sx={{ fontSize: "1em" }} >logout</Typography>
+                                <Logout sx={{ width: 35, height: 35 }} /><Typography sx={{ fontSize: "1em" }} >{t('nav.logout')}</Typography>
                             </ListItemButton>
                         </ListItem>
                     </div>
@@ -155,7 +157,7 @@ export default function MenuListDrawer() {
     }
 
     function handleLogout() {
-        showAlert(true, "warning", "logout", "Do you really want to log out of the system?", "LOGOUT");
+        showAlert(true, "warning", t('nav.logout'), t('dashboard.confirmLogout'), "LOGOUT");
     }
 
     function handleSendFeedback() {
@@ -174,7 +176,7 @@ export default function MenuListDrawer() {
             window.location.href = href;
             setOpen(false);
         } catch (_) {
-            showAlert(true, 'error', 'Feedback', 'Could not open your mail client on this device.', 'OK');
+            showAlert(true, 'error', t('dashboard.feedback'), t('dashboard.mailClientError'), t('dashboard.ok'));
         }
     }
 }

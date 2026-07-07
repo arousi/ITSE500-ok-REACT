@@ -20,9 +20,12 @@ import { useAuth } from "../../register/contexts/UserProvider";
 import { OptionStorageContext } from "../../profile/contexts/OptionStorageContext";
 import CustomSwitch from "../../profile/components/CustomSwitch";
 import logger from "../../../core/logger";
+import { useTranslation } from "react-i18next";
+import LanguageSwitcher from "../../settings/components/LanguageSwitcher";
 // import { sendUserConversationsToServer } from "../../user-home-page/logic/connectServer";
 // import { buildServerSyncPacket } from "../../user-home-page/logic/conversationOperations";
 export default function AppBarDrawer() {
+    const { t } = useTranslation();
     const [checked, setChecked] = useState(false)
     const { setStorageOption, storageOption } = useContext(OptionStorageContext)
     const { setOpen, open } = useContext(OpenDrawerContext);
@@ -71,6 +74,7 @@ export default function AppBarDrawer() {
                 </Box>
                 {isSmall ? (
                     <>
+                        <LanguageSwitcher />
                         <IconButton onClick={(e) => setMoreEl(e.currentTarget)} aria-label="more">
                             <MoreVert sx={{ width: iconSize, height: iconSize }} />
                         </IconButton>
@@ -82,22 +86,23 @@ export default function AppBarDrawer() {
                             transformOrigin={{ vertical: 'top', horizontal: 'right' }}
                         >
                             <MenuItem onClick={() => { setChecked(!checked); setMoreEl(null); }}>
-                                {checked ? 'Use local storage' : 'Use synced storage'}
+                                {checked ? t('dashboard.useLocalStorage') : t('dashboard.useSyncedStorage')}
                             </MenuItem>
                             <MenuItem onClick={() => { handleCreateChat(); setMoreEl(null); }}>
-                                New Chat
+                                {t('dashboard.newChat')}
                             </MenuItem>
                             <MenuItem onClick={() => { setDisplayConfiguration(true); setMoreEl(null); }}>
-                                Settings
+                                {t('nav.settings')}
                             </MenuItem>
                         </MuiMenu>
                     </>
                 ) : (
                     <div className="appbar-controls">
+                        <LanguageSwitcher />
                         <div className="sync-toggle">
-                            <Typography component="span" sx={{ fontSize: '23px', mr: 1 }}>synced</Typography>
+                            <Typography component="span" sx={{ fontSize: '23px', mr: 1 }}>{t('dashboard.synced')}</Typography>
                             <CustomSwitch checked={checked} onChange={(e) => setChecked(e.target.checked)} />
-                            <Typography component="span" sx={{ fontSize: '23px', ml: 1 }}>local</Typography>
+                            <Typography component="span" sx={{ fontSize: '23px', ml: 1 }}>{t('dashboard.local')}</Typography>
                         </div>
                         <IconButton onClick={() => handleCreateChat()} aria-label="create-chat">
                             <TryIcon sx={{ width: iconSize, height: iconSize }} />

@@ -13,7 +13,9 @@ import { reconstructUIFromBundle } from "../logic/conversationOperations";
 import { IsStoredAIMessageContext } from "../contexts/IsStoredAIMessageContext";
 import { useAuth } from "../../register/contexts/UserProvider";
 import logger from "../../../core/logger";
+import { useTranslation } from "react-i18next";
 export default function ChatArea() {
+    const { t } = useTranslation();
     const {messages, contents, isLoading, setMessages, setContents} = useContext(SendMessageContext);
     const {userProfile} = useContext(UserProfileContext);
     const {modelSelected, setModelSelected} = useContext(ModelSelectedContext);
@@ -181,7 +183,7 @@ export default function ChatArea() {
                             window.scrollTo({ top: 0, behavior: 'smooth' });
                         }
                     }}
-                    aria-label="Scroll to top"
+                    aria-label={t('chat.scrollToTop')}
                 >
                     <ArrowUpwardIcon fontSize="large" />
                 </IconButton>
@@ -243,7 +245,7 @@ export default function ChatArea() {
         return (
             <div style={{height: "100%", display: "flex", justifyContent: "center", alignItems: "center"}}>
             <span style={{fontSize: "30px", fontWeight: "bold"}}>
-                Hello {firstName}! Ask me anything.
+                {t('chat.welcomeMessage', { name: firstName })}
             </span>
             </div>
         );
