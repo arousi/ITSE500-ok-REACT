@@ -44,7 +44,6 @@ const CONTRACT_SCHEMA_PATH =
 const schemaExists = fs.existsSync(CONTRACT_SCHEMA_PATH);
 
 describe('API contract (Django OpenAPI schema)', () => {
-  // eslint-disable-next-line jest/no-disabled-tests
   (schemaExists ? test : test.skip)(
     'app request/response shapes conform to contract/openapi.yaml',
     () => {
