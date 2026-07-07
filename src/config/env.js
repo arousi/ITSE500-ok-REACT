@@ -121,6 +121,17 @@ export function validateEnv() {
     console.error(msg);
     throw new Error(msg);
   }
+  // Base URLs must be https in production (a plain-http value would only fail at
+  // runtime via mixed-content blocking; fail loudly at startup instead).
+  const notHttps = REQUIRED_IN_PROD.filter((k) => !/^https:\/\//i.test(env[k]));
+  if (notHttps.length) {
+    const names = notHttps
+      .map((k) => (k === 'apiBaseUrl' ? 'REACT_APP_API_BASE_URL' : 'REACT_APP_AUTH_BASE_URL'))
+      .join(', ');
+    const msg = `[config] Production base URLs must use https:// — ${names}`;
+    console.error(msg);
+    throw new Error(msg);
+  }
   return { ok: true, missing: [] };
 }
 

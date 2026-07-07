@@ -41,7 +41,7 @@ server {
   add_header X-Content-Type-Options "nosniff" always;
   add_header X-Frame-Options "DENY" always;
   add_header Referrer-Policy "strict-origin-when-cross-origin" always;
-  add_header Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: https:; connect-src 'self' https://www.itse500-ok.ly https://openrouter.ai https://api.openai.com https://generativelanguage.googleapis.com https://huggingface.co; frame-ancestors 'none'; base-uri 'self'; form-action 'self'" always;
+  add_header Content-Security-Policy "default-src 'self'; object-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: https:; connect-src 'self' https://www.itse500-ok.ly https://openrouter.ai https://api.openai.com https://generativelanguage.googleapis.com https://huggingface.co; frame-ancestors 'none'; base-uri 'self'; form-action 'self'" always;
 
   location / {
     proxy_pass http://127.0.0.1:8000;   # gunicorn

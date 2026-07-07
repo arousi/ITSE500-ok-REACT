@@ -30,4 +30,17 @@ describe('core/tokenRefresh', () => {
     global.fetch = jest.fn().mockResolvedValue({ ok: false, json: async () => ({}) });
     await expect(refreshAccessToken()).resolves.toBeNull();
   });
+
+  test('concurrent refreshes share a single in-flight request (dedupe)', async () => {
+    localStorage.setItem('auth', JSON.stringify({ data: { refresh_token: 'r1' } }));
+    let calls = 0;
+    global.fetch = jest.fn().mockImplementation(() => {
+      calls += 1;
+      return Promise.resolve({ ok: true, json: async () => ({ access: 'A' }) });
+    });
+    const [a, b] = await Promise.all([refreshAccessToken(), refreshAccessToken()]);
+    expect(a).toBe('A');
+    expect(b).toBe('A');
+    expect(calls).toBe(1); // both callers shared one fetch
+  });
 });

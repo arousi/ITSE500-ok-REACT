@@ -45,7 +45,7 @@ jobs:
           REACT_APP_AUTH_BASE_URL: https://www.itse500-ok.ly
 
   api-drift:
-    name: api (openapi codegen drift)
+    name: api (typed client)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -62,5 +62,10 @@ jobs:
       - name: Regenerate typed client from vendored schema
         run: npm run gen:api
 
+      # Checks the committed client matches the VENDORED schema (openapi/schema.yaml),
+      # not that the vendored schema matches the live backend — re-vendor separately.
       - name: Fail if committed generated client is stale
         run: git diff --exit-code src/api/schema.d.ts
+
+      - name: Type-check the generated client
+        run: npx tsc --noEmit -p tsconfig.json
