@@ -43,3 +43,24 @@ jobs:
           CI: false
           REACT_APP_API_BASE_URL: https://www.itse500-ok.ly
           REACT_APP_AUTH_BASE_URL: https://www.itse500-ok.ly
+
+  api-drift:
+    name: api (openapi codegen drift)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Regenerate typed client from vendored schema
+        run: npm run gen:api
+
+      - name: Fail if committed generated client is stale
+        run: git diff --exit-code src/api/schema.d.ts

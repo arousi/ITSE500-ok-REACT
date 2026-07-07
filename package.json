@@ -39,7 +39,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy:frontend": "bash scripts/deploy-frontend.sh"
+    "deploy:frontend": "bash scripts/deploy-frontend.sh",
+    "gen:api": "openapi-typescript openapi/schema.yaml -o src/api/schema.d.ts"
   },
   "eslintConfig": {
     "extends": [
@@ -61,6 +62,7 @@
   },
   "devDependencies": {
     "http-proxy-middleware": "^3.0.0",
+    "openapi-typescript": "6.7.6",
     "typescript": "4.9.5"
   }
 }
