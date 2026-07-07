@@ -2,5 +2,13 @@
 // allows you to do things like:
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
-import '@testing-library/jest-dom'
-    ;
+import '@testing-library/jest-dom';
+
+// MSW: ensure no test ever hits a real network/backend. Handlers mirror the
+// Django API surface (see src/mocks/handlers.js); tests can override
+// per-case with `server.use(...)`.
+import { server } from './mocks/server';
+
+beforeAll(() => server.listen({ onUnhandledRequest: 'error' }));
+afterEach(() => server.resetHandlers());
+afterAll(() => server.close());
